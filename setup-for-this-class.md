@@ -57,7 +57,7 @@ Many MANY examples in class will be done at the command line, as will documentat
 ### Cloning the class repository
 
 If you follow the below link, you will create a personal copy of the class repository on your Github account.
-- https://rebrand.ly/bosinfo6250-github
+- https://rebrand.ly/svinfo6250-github
 
 You only have to do so once. After you've created this copy on github, you will want to "clone" this repository to your personal computer. 
 
