@@ -21,21 +21,27 @@ const chatWeb = {
   },
 
   getMessageList: function (chat) {
-    return (
-      `<ol class="messages">` +
-      chat.messages
-        .map(
-          (message) =>
-            `<li class="messages__item">${message.sender}: ${message.text}</li>`
-        )
-        .join("") +
-      `</ol>`
-    );
+    return `<ol class="messages">
+      ${chat.messages
+        .map((message) => {
+          knownSender = ["Amit", "Bao"].includes(message.sender);
+          return `<li class="message-item"><img class='avatar' src=${
+            knownSender
+              ? `avatar/avatar-${message.sender.toLowerCase()}.jpg`
+              : "https://placekitten.com/100/100"
+            // Add this ramdon page when sender is not preset for better experience
+          }><span class="message-text">${message.sender}: ${
+            message.text
+          }</span></li>`;
+        })
+        .join("")}
+      </ol>`;
   },
   getUserList: function (chat) {
-    return (
-      `<ul class="users">` +
-      Object.values(chat.users)
+    return `
+    
+    <ul class="users">
+      ${Object.values(chat.users)
         .map(
           (user) => `
       <li>
@@ -45,9 +51,8 @@ const chatWeb = {
       </li>
     `
         )
-        .join("") +
-      `</ul>`
-    );
+        .join("")}
+      </ul>`;
   },
   getOutgoing: function () {
     return `      
@@ -59,6 +64,7 @@ const chatWeb = {
             name='username'
             type="text"
             placeholder="anonymous"
+            required
           />
           <label>Input text: </label>
           <input
