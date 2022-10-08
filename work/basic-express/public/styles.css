@@ -1,0 +1,56 @@
+html {
+  padding: 0;
+  margin: 0;
+  font-family: sans-serif;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+#chat-app {
+  padding: 0;
+  margin: 0;
+
+  width: 100vw;
+  height: 100%;
+
+  border: 1px solid black;
+  border-radius: 1rem;
+
+  display: grid;
+  grid-template-areas: "header header" "user message" "sender-field sender-field";
+  grid-template-rows: 5rem 1fr 2rem;
+  grid-template-columns: auto 1fr;
+}
+
+#chat-app h1 {
+  grid-area: header;
+
+  text-align: center;
+}
+
+#chat-app .users {
+  grid-area: user;
+  max-width: fit-content;
+}
+
+#chat-app .avatar {
+  height: 40px;
+}
+
+#chat-app .messages {
+  grid-area: message;
+  list-style-type: none;
+
+  padding-left: 1rem;
+}
+
+#chat-app .message-text {
+  height: 100%;
+}
+
+#chat-app .sender-field {
+  grid-area: sender-field;
+}
