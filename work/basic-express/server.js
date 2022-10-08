@@ -18,6 +18,7 @@ app.post("/chat", express.urlencoded({ extended: false }), (req, res) => {
     sender,
     text,
   };
+  chat.users[sender] = sender;
   res.redirect("/");
 });
 
