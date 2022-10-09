@@ -34,6 +34,9 @@ body {
 #chat-app .users {
   grid-area: user;
   max-width: fit-content;
+
+  padding-right: 1rem;
+  border-right: 2px solid black;
 }
 
 #chat-app .avatar {
