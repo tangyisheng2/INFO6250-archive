@@ -64,6 +64,7 @@ const chatWeb = {
             name='username'
             type="text"
             placeholder="anonymous"
+            value="anonymous"
             required
           /></label>
           <label>Input text: 
