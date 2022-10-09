@@ -58,21 +58,21 @@ const chatWeb = {
     return `      
       <div class="sender-field">
         <form action="/chat" method="post" class="sender-form">
-          <label>Your Name: </label>
+          <label>Your Name: 
           <input
             class="sender-data"
             name='username'
             type="text"
             placeholder="anonymous"
             required
-          />
-          <label>Input text: </label>
+          /></label>
+          <label>Input text: 
           <input
             class="sender-data"
             name='text'
             type="text"
             placeholder="New Messages"
-          />
+          /></label>
           <button type="submit">Send</button>
         </form>
       </div>`;
