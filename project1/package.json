@@ -1,0 +1,15 @@
+{
+  "name": "project1",
+  "version": "1.0.0",
+  "description": "** Due Wed Oct 19 11:59pm PT **",
+  "main": "words.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
