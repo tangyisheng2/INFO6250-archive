@@ -63,6 +63,10 @@ app.post("/word/add", (req, res) => {
   const sessionId = req.cookies["session-id"];
   const username = userStorage[sessionId];
   const newWords = req.body.word;
+  if (username === undefined) {
+    // If user is not valid, probably change the session-id and then submit a new word, do nothing
+    res.redirect("/");
+  }
   if (!(username in wordStorage)) {
     wordStorage[username] = []; // Add the key to avoid reading undefined
   }
@@ -77,7 +81,8 @@ app.post("/word/add", (req, res) => {
  * If the old word does not exist, do nothing
  */
 app.post("/word/replace", (req, res) => {
-  const username = req.cookies.username;
+  const userUUID = req.cookies["session-id"];
+  const username = userStorage[userUUID];
   const oldWord = req.body.oldWord;
   const newWord = req.body.word;
   if (wordStorage[username].includes(oldWord)) {
