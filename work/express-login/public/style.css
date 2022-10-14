@@ -1,0 +1,58 @@
+* {
+  font-family: sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+nav {
+  background-color: grey;
+  padding: 1rem;
+  margin: 0;
+}
+
+nav ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+
+  list-style: none;
+
+  padding: 0;
+}
+
+.logout-button {
+  border: none;
+  background-color: transparent;
+
+  text-decoration: underline;
+
+  color: blue;
+
+  font-size: medium;
+
+  cursor: pointer;
+}
+
+main {
+  margin: 0 1rem;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 1rem;
+
+  border-bottom: 1px solid black;
+}
+
+.login-prompt {
+  margin: 1rem 0;
+}
+
+.words-list {
+  margin: 1rem;
+}
+
+main form {
+  margin: 0.5rem 0;
+}

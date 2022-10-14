@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Log in</title>
+</head>
+
+<body>
+    <nav>
+        <ul class="nav-list">
+            <li><a href="/">Go Home</a></li>
+            <li><a href="/">Log in</a></li>
+        </ul>
+    </nav>
+    <main>
+        <h1 class="title">Welcome!</h1>
+        <form action="/login" method="post">
+            <p>Please Log in: </p>
+            <label>
+                Username:
+                <input type="text" name="username" required>
+            </label>
+            <button type="submit">Submit</button>
+        </form>
+        <div class="words-display">
+            <span class="words-prompt">Your saved words: </span>
+            <ol class="words-list">
+            </ol>
+        </div>
+        <form action="/word" method="post">
+            <label>
+                Key in new words:
+                <input type="text" name="word" required>
+            </label>
+            <button type="submit">Submit</button>
+        </form>
+    </main>
+</body>
+
+</html>
