@@ -11,7 +11,7 @@ const user = {
     if (username && username != "dog" && /^[a-z0-9]+$/i.test(username)) {
       const firstLogin = !userStatus[username];
       userStorage[userUUID] = username;
-      console.log(`Read username: ${username}`);
+      console.log(`${username} is logged in`);
       res.cookie("session-id", userUUID);
       if (firstLogin) {
         // If the user first login, return a new game

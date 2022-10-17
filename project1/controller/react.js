@@ -175,8 +175,4 @@ const react = {
     `;
   },
 };
-
-function test() {
-  console.log(123);
-}
 module.exports = react;
