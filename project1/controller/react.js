@@ -2,6 +2,7 @@
 const guessResultConstant = require("../constant/guessResultConstant.js");
 const gamesLogic = require("./gamesLogic.js");
 const storage = require("./storage.js");
+const words = require("./words.js");
 const react = {
   render(username, err) {
     return `
@@ -57,7 +58,10 @@ const react = {
     let guessCountElement = "";
     let wonMessageElement = "";
     let guessFormElement = "";
-    if (Object.keys(userStat).length) {
+    let secretWordsElemet = `<p class="game-prompt">Secret word list: ${words
+      .filter((entry) => !userStat.guessedWord.includes(entry)) // Filter out guessed words
+      .join(", ")}</p>`;
+    if (userStat && Object.keys(userStat).length) {
       if (userStat.guessedWord.length) {
         lastGuessElement = `<p class="game-prompt">
                               Last guess "${
@@ -98,6 +102,7 @@ const react = {
                   <div class="game">
                       <!-- If have the correct guest -->
                       ${react.getErrorMsg(username)}
+                      ${secretWordsElemet}
                       ${lastGuessElement}
                       ${guessHistoryElement}
                       ${guessCountElement}
