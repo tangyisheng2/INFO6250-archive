@@ -67,21 +67,30 @@ const react = {
                               Last guess "${
                                 userStat.guessedWord[
                                   userStat.guessedWord.length - 1
-                                ]
+                                ][0]
                               }" was 
                               ${userStat.lastGuessStatus}, and have 
-                              ${gamesLogic.compare(
+                              ${
                                 userStat.guessedWord[
                                   userStat.guessedWord.length - 1
-                                ],
-                                userStat.word
-                              )}
+                                ][1]
+                              }
                               characters in common.
                             </p>`;
       }
-      guessHistoryElement = `<p class="game-prompt">
-                        Your guest history: ${userStat.guessedWord.join(",")}
-                      </p>`;
+      guessHistoryElement = `<div class="game-prompt">
+                        <p>Your guest history: </p>
+                          <ul>
+                          ${userStat.guessedWord
+                            .map(
+                              (entry) =>
+                                `<li>${entry.join(
+                                  ": "
+                                )} characters in common</li>`
+                            )
+                            .join("")}
+                          </ul>
+                      </div>`;
       guessCountElement = `<p class="game-prompt">
                             You have ${userStat.guessedCount} guess.
                            </p>`;
@@ -91,7 +100,7 @@ const react = {
                           </form>`;
     }
     if (userStat.lastGuessStatus == guessResultConstant.correct) {
-      wonMessageElement = `<p class="game-prompt">You won the game!</p>`;
+      wonMessageElement = `<p class="game-prompt win">You won the game!</p>`;
     }
     return `
       <main class="main">
@@ -135,7 +144,11 @@ const react = {
               Top Ranking in the game
           </h2>
           <ol class="ranking-list">
-              ${highScoreElement}
+              ${
+                highScore.length
+                  ? highScoreElement
+                  : `<p>No data yet, come back later</p>`
+              }
           </ol>
       </div>
     </main>

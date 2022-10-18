@@ -49,7 +49,10 @@ const gamesLogic = {
     const guess = req.body.guess;
     // Update count
     userStat.guessedCount += 1;
-    userStat.guessedWord[userStat.guessedWord.length] = guess;
+    userStat.guessedWord[userStat.guessedWord.length] = [
+      guess,
+      gamesLogic.compare(guess, word),
+    ];
     // Compare results
 
     if (gamesLogic.correctGuess(guess, word)) {
