@@ -12,7 +12,6 @@ const gamesLogic = {
       res.status(401);
       res.redirect("/"); //TODO: add error page
     }
-    console.log(`User ${username} started a new game`);
     // Clear previous state
     storage.userStatus[username] = {};
 
@@ -27,6 +26,8 @@ const gamesLogic = {
       won: false,
       msg: "",
     };
+    console.log(`User ${username} started a new game`);
+    console.log(`User ${username}'s secret word is ${word}`);
     // User took a guess
     res.redirect("/");
   },
