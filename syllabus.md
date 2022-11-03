@@ -76,6 +76,7 @@ Wed Oct 19, 11:59pm PT
 Thu Oct 20, 
 Thu Oct 27,
 Thu Nov 3,
+Thu Nov 10,
 
 - The DOM 
 - JS-based Validation
@@ -88,10 +89,9 @@ Thu Nov 3,
 
 #### Vanilla JS Project Due
 
-Wed Nov 9, 11:59pm PT
+Wed Nov 16, 11:59pm PT
 
 ### Section 3: The Recent Web
-Thu Nov 10,
 Thu Nov 17,
 NOT Thu Nov 24 (Holiday),
 Thu Dec 1,
