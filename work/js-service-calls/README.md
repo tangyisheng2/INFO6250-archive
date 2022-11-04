@@ -6,7 +6,7 @@
 * Add, commit, and push the branch to github
 * Create a PR to merge to main
 * Be sure to include the TA(s) and I as reviewers.  
-* Due by **Mon Jul 5 11:59pm (ET)**
+* Due by ** Wed Nov 9 11:59pm (PT)**
 
 ## Goals and Requirements
 
