@@ -55,7 +55,6 @@ var controller = {
     });
     var cartDiv = document.querySelector(".cart-div");
     cartDiv.addEventListener("click", function (e) {
-      console.log(e.target);
       switch (e.target.className) {
         case "toggle-cart":
           storage.isShowingCart = !storage.isShowingCart;
