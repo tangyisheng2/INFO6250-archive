@@ -87,7 +87,6 @@ var controller = {
         console.log("fetching words");
         if (!response.ok) {
           return response.json().then(function (err) {
-            console.log(response);
             storage.errMsg = "Error fetching words, try again";
             return Promise.reject(err);
           });
