@@ -1,0 +1,33 @@
+* {
+  padding: 0;
+  margin: 0;
+  font-family: sans-serif;
+}
+
+#app {
+  display: grid;
+  grid-template-areas: "title cart" "item item";
+}
+
+.title {
+  grid-area: title;
+}
+
+.cart-div {
+  grid-area: cart;
+  padding-left: 1rem;
+}
+
+.cat-div {
+  grid-area: item;
+}
+
+.cat-div .cat-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  text-align: center;
+
+  list-style: none;
+}
