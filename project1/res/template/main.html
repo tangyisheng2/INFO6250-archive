@@ -1,0 +1,23 @@
+<main class="main">
+    <div class="welcome-prompt">
+        <h1 class="welcome-prompt-text">Welcome! <span class="username-text">Username</span></h1>
+    </div>
+    <div class="game">
+        <!-- If have the correct guest -->
+        ${userStat.lastGuessStatus != 'won' ?
+        ${userStat.guessedWord ? <p class="game-prompt">Last guess "${userStat.guessedWord[-1]}" is
+            ${userStat.lastGuessStatus}, and have 3 characters in common.</p> : ""}
+        <p class="game-prompt">Your guest history: ${userStat.guessedWord}</p>
+        <p class="game-prompt">You have ${userStat.guessedCount} guess.</p>
+        :
+        <p class="game-prompt">You won the game!</p>
+        }
+        <form action="/guess" method="post" class="new-guess">
+            <label>Guess a new word: <input type="text" name="guess" placeholder="word" required></label>
+            <button type="submit">Submit</button>
+        </form>
+        <form action="/newgame" method="post" class="new-game">
+            <button type="submit">New Game</button>
+        </form>
+    </div>
+</main>

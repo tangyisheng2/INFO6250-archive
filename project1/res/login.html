@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Log In</title>
+</head>
+
+<body>
+    <div class="container">
+        <nav class="nav">
+            <ul class="nav-list">
+                <li><a href="/">Game</a></li>
+                <li><a href="/rank">Rank</a></li>
+                <li><a href="/login">Log In</a></li>
+            </ul>
+        </nav>
+        <main class="main">
+            <div class="welcome-prompt">
+                <h1 class="welcome-prompt-text">Welcome! <span class="username-text">Username</span></h1>
+            </div>
+            <div class="login">
+                <p class="login-error-msg">Error Message</p>
+                <form action="/login" class="login-form">
+                    <label>Username<input type="text" name="username" required></label>
+                    <button type="submit">Log In</button>
+                </form>
+            </div>
+        </main>
+        <footer class="footer">
+            <p>By Yisheng Tang</p>
+        </footer>
+    </div>
+</body>
+
+</html>

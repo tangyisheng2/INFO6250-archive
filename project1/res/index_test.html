@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Game</title>
+</head>
+
+<body>
+    <div class="container">
+        <nav class="nav">
+            <ul class="nav-list">
+                <li><a href="/">Game</a></li>
+                <li><a href="/rank">Rank</a></li>
+                <li><a href="/login">Log In</a></li>
+                <li>
+                    <form action="/logout" method="post"><button type="submit">Log Out</button>
+                    </form>
+                </li>
+            </ul>
+        </nav>
+        </nav>
+        <main class="main">
+            <div class="welcome-prompt">
+                <h1 class="welcome-prompt-text">Welcome! <span class="username-text">Username</span></h1>
+            </div>
+            <div class="game">
+                <p class="game-prompt">Last guess "GuessWord" is incorrect, and have 3 characters in common.</p>
+                <p class="game-prompt">Your guest history: </p>
+                <p class="game-prompt">You have 3 valid guess.</p>
+                <!-- If have the correct guest -->
+                <p class="game-prompt">You have won!</p>
+                <form action="/guess" method="post" class="new-guess">
+                    <label>Guess a new word: <input type="text" name="guess" placeholder="word" required></label>
+                    <button type="submit">Submit</button>
+                </form>
+                <form action="/newgame" method="post" class="new-game">
+                    <button type="submit">New Game</button>
+                </form>
+            </div>
+
+        </main>
+        <footer class="footer">
+            <p>By Yisheng Tang</p>
+        </footer>
+    </div>
+</body>
+
+</html>
