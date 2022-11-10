@@ -12,23 +12,22 @@ var storage = __webpack_require__(/*! ./storage */ "./src/storage.js");
 var controller = {
   user: {
     fetchSession: function fetchSession() {
-      return fetch("/api/session/")["catch"](function (err) {
-        return storage.errMsg = "Invalid Credential, plesae login";
+      storage.username = undefined;
+      storage.wordList = undefined;
+      return fetch("/api/session")["catch"](function (err) {
+        return Promise.reject(err);
       }).then(function (res) {
         if (!res.ok) {
-          return res.json().then(function (err) {
-            storage.errMsg = "Invalid Credential, plesae login";
-            return Promise.reject(err);
+          return Promise.reject({
+            err: "Invalid User"
           });
         }
         return res.json();
       }).then(function (res) {
-        if (res.username) {
-          storage.username = res.username;
-        } else {
-          storage.username = undefined;
-          storage.wordList = [];
-        }
+        storage.username = res.username;
+        return controller.word.fetchWord();
+      }).then(function (res) {
+        storage.wordList = res.storedWord;
       });
     },
     fetchLogin: function fetchLogin(username) {
@@ -49,16 +48,14 @@ var controller = {
       }).then(function (response) {
         if (!response.ok) {
           return response.json().then(function (err) {
-            storage.errMsg = "Invalid Credential, please login";
+            storage.errMsg = "Invalid Credential, try again";
             react.render();
             return Promise.reject(err);
           });
         }
         return response.json();
       }).then(function (response) {
-        console.log(response);
-        storage.username = response.username || undefined;
-        console.log(storage);
+        storage.username = response.username;
       });
       return session;
     },
@@ -81,10 +78,8 @@ var controller = {
       return fetch("/api/word", {
         method: "GET"
       })["catch"](function (err) {
-        console.log(err);
         storage.errMsg = "Network Error, try again";
       }).then(function (response) {
-        console.log("fetching words");
         if (!response.ok) {
           return response.json().then(function (err) {
             storage.errMsg = "Error fetching words, try again";
@@ -92,19 +87,9 @@ var controller = {
           });
         }
         return response.json();
-      }).then(function (res) {
-        console.log(res);
-        if (res.storedWord.length > 0) {
-          var wordList = res.storedWord.split(",");
-          storage.wordList = wordList;
-        }
-        return;
       });
     },
     addWord: function addWord(word) {
-      console.log({
-        word: word
-      });
       return fetch("/api/word", {
         method: "POST",
         headers: {
@@ -129,17 +114,13 @@ var controller = {
     }
   },
   initEventListener: function initEventListener() {
-    controller.user.fetchSession();
     var appEl = document.querySelector("#app");
     appEl.addEventListener("click", function (e) {
       e.preventDefault();
-      controller.user.fetchSession();
-      console.log(e.target);
       storage.errMsg = "";
       switch (e.target.className) {
         case "username-submit":
           var usernameEl = document.querySelector(".username-input");
-          console.log("Logging in with ".concat(usernameEl.value));
           controller.user.fetchLogin(usernameEl.value).then(function () {
             return controller.word.fetchWord();
           }).then(function () {
@@ -147,7 +128,6 @@ var controller = {
           });
           break;
         case "logout":
-          console.log("logging out");
           controller.user.fetchLogout().then(function () {
             storage.username = undefined;
             storage.wordList = [];
@@ -180,7 +160,6 @@ module.exports = controller;
 
 var controller = __webpack_require__(/*! ./controller.js */ "./src/controller.js");
 var storage = __webpack_require__(/*! ./storage.js */ "./src/storage.js");
-console.log(controller);
 var react = {
   render: function render() {
     react.renderUserStatus();
@@ -194,7 +173,6 @@ var react = {
     var loginHTML = "<a href=\"\" class=\"login\">Log In</a>";
     var logoutHTML = "<a href=\"\" class=\"logout\">Log out</a>";
     userEl.innerHTML = isLoggedIn ? logoutHTML : loginHTML;
-    console.log(storage.username);
   },
   renderLoginForm: function renderLoginForm() {
     var loginEl = document.querySelector(".login-form");
@@ -207,9 +185,8 @@ var react = {
   renderWordForm: function renderWordForm() {
     var wordList = storage.wordList;
     var wordEl = document.querySelector(".words");
-    console.log(wordList.length > 0 && wordList[0].length > 0);
     if (storage.username) {
-      var wordListHTML = wordList[0] ? "<p>Your word is ".concat(wordList[0], " </p>") : "<p>You do not have any word</p>";
+      var wordListHTML = wordList ? "<p>Your word is ".concat(wordList, " </p>") : "<p>You do not have any word</p>";
       var wordInputHTML = "\n    <form action=\"\">\n      <label>\n        Update word: <input type=\"text\" class=\"word-input\"></input>\n      </label>\n      <button class='word-submit' type=\"submit\">Submit</button>\n    </form>";
       wordEl.innerHTML = [wordListHTML, wordInputHTML].join("");
     } else {
@@ -237,7 +214,7 @@ module.exports = react;
 
 var storage = {
   username: undefined,
-  wordList: [],
+  wordList: undefined,
   errMsg: ""
 };
 module.exports = storage;
@@ -279,9 +256,11 @@ var __webpack_exports__ = {};
   \**********************/
 var controller = __webpack_require__(/*! ./controller.js */ "./src/controller.js");
 var react = __webpack_require__(/*! ./react.js */ "./src/react.js");
-// controller.user.fetchLogout();
-react.render();
 controller.initEventListener();
+controller.user.fetchSession().then(function () {
+  return react.render();
+}); // Render for a resumed session
+react.render(); // Render for a new session
 })();
 
 /******/ })()

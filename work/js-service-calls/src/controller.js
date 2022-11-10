@@ -21,7 +21,6 @@ const controller = {
           return controller.word.fetchWord();
         })
         .then((res) => {
-          console.log(`fetched word ${res}`);
           storage.wordList = res.storedWord;
         });
     },
@@ -49,9 +48,7 @@ const controller = {
           return response.json();
         })
         .then((response) => {
-          console.log(response);
           storage.username = response.username;
-          console.log(storage);
         });
       return session;
     },
@@ -72,11 +69,9 @@ const controller = {
         method: "GET",
       })
         .catch((err) => {
-          console.log(err);
           storage.errMsg = "Network Error, try again";
         })
         .then((response) => {
-          console.log("fetching words");
           if (!response.ok) {
             return response.json().then((err) => {
               storage.errMsg = "Error fetching words, try again";
@@ -88,7 +83,6 @@ const controller = {
     },
 
     addWord(word) {
-      console.log({ word: word });
       return fetch("/api/word", {
         method: "POST",
         headers: {
@@ -116,19 +110,16 @@ const controller = {
     const appEl = document.querySelector("#app");
     appEl.addEventListener("click", (e) => {
       e.preventDefault();
-      console.log(e.target);
       storage.errMsg = "";
       switch (e.target.className) {
         case "username-submit":
           const usernameEl = document.querySelector(".username-input");
-          console.log(`Logging in with ${usernameEl.value}`);
           controller.user
             .fetchLogin(usernameEl.value)
             .then(() => controller.word.fetchWord())
             .then(() => react.render());
           break;
         case "logout":
-          console.log("logging out");
           controller.user.fetchLogout().then(() => {
             storage.username = undefined;
             storage.wordList = [];

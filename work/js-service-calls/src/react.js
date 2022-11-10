@@ -14,7 +14,6 @@ const react = {
     const loginHTML = `<a href="" class="login">Log In</a>`;
     const logoutHTML = `<a href="" class="logout">Log out</a>`;
     userEl.innerHTML = isLoggedIn ? logoutHTML : loginHTML;
-    console.log(storage.username);
   },
 
   renderLoginForm() {
