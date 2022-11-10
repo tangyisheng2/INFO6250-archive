@@ -41,7 +41,7 @@ const controller = {
         .then((response) => {
           if (!response.ok) {
             return response.json().then((err) => {
-              storage.errMsg = "Invalid Credential, please login";
+              storage.errMsg = "Invalid Credential, try again";
               react.render();
               return Promise.reject(err);
             });
