@@ -10,11 +10,11 @@
 }
 
 .title {
-  margin: 1rem 0;
+  margin: 1rem 0 1rem 1rem;
 }
 
 .user {
-  margin: auto 0 auto auto;
+  margin: auto 1rem auto auto;
 }
 
 .error-msg {
