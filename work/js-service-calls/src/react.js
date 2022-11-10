@@ -1,6 +1,5 @@
 const controller = require("./controller.js");
 const storage = require("./storage.js");
-console.log(controller);
 
 const react = {
   render() {
@@ -34,10 +33,9 @@ const react = {
   renderWordForm() {
     const wordList = storage.wordList;
     const wordEl = document.querySelector(".words");
-    console.log(wordList.length > 0 && wordList[0].length > 0);
     if (storage.username) {
-      const wordListHTML = wordList[0]
-        ? `<p>Your word is ${wordList[0]} </p>`
+      const wordListHTML = wordList
+        ? `<p>Your word is ${wordList} </p>`
         : `<p>You do not have any word</p>`;
       const wordInputHTML = `
     <form action="">

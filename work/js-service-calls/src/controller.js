@@ -4,24 +4,25 @@ const storage = require("./storage");
 const controller = {
   user: {
     fetchSession() {
-      return fetch("/api/session/")
-        .catch((err) => (storage.errMsg = "Invalid Credential, plesae login"))
+      storage.username = undefined;
+      storage.wordList = undefined;
+      return fetch("/api/session")
+        .catch((err) => {
+          return Promise.reject(err);
+        })
         .then((res) => {
           if (!res.ok) {
-            return res.json().then((err) => {
-              storage.errMsg = "Invalid Credential, plesae login";
-              return Promise.reject(err);
-            });
+            return Promise.reject({ err: "Invalid User" });
           }
           return res.json();
         })
         .then((res) => {
-          if (res.username) {
-            storage.username = res.username;
-          } else {
-            storage.username = undefined;
-            storage.wordList = [];
-          }
+          storage.username = res.username;
+          return controller.word.fetchWord();
+        })
+        .then((res) => {
+          console.log(`fetched word ${res}`);
+          storage.wordList = res.storedWord;
         });
     },
 
@@ -49,7 +50,7 @@ const controller = {
         })
         .then((response) => {
           console.log(response);
-          storage.username = response.username || undefined;
+          storage.username = response.username;
           console.log(storage);
         });
       return session;
@@ -83,14 +84,6 @@ const controller = {
             });
           }
           return response.json();
-        })
-        .then((res) => {
-          console.log(res);
-          if (res.storedWord.length > 0) {
-            const wordList = res.storedWord.split(",");
-            storage.wordList = wordList;
-          }
-          return;
         });
     },
 
@@ -120,11 +113,9 @@ const controller = {
   },
 
   initEventListener() {
-    controller.user.fetchSession();
     const appEl = document.querySelector("#app");
     appEl.addEventListener("click", (e) => {
       e.preventDefault();
-      controller.user.fetchSession();
       console.log(e.target);
       storage.errMsg = "";
       switch (e.target.className) {
@@ -150,7 +141,6 @@ const controller = {
             .addWord(wordInputEl.value)
             .then(() => controller.word.fetchWord())
             .then(() => react.render());
-
           break;
         default:
           break;

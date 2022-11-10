@@ -1,6 +1,6 @@
 const storage = {
   username: undefined,
-  wordList: [],
+  wordList: undefined,
   errMsg: "",
 };
 
