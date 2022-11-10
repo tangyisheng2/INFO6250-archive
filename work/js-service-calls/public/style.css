@@ -6,22 +6,39 @@
 
 #app {
   display: grid;
-  grid-template-areas: "title user" "main main" "words words";
+  grid-template-areas: "title user" "err err" "main main" "words words";
 }
 
 .title {
-  margin-bottom: 1rem;
+  margin: 1rem 0;
+}
+
+.user {
+  margin: auto 0 auto auto;
+}
+
+.error-msg {
+  grid-area: err;
+
+  justify-self: center;
+
+  margin: 1rem;
 }
 
 .login-form {
   grid-area: main;
+
+  justify-self: center;
 }
 
 .words {
   grid-area: words;
+  justify-self: center;
 }
 
 .words p,
 .words form {
   margin: 1rem 0;
+
+  justify-self: center;
 }
