@@ -9,32 +9,8 @@
   min-width: 600px;
 
   margin: auto;
-
-  display: grid;
-  grid-template-areas:
-    'title title'
-    'userlist chat'
-    'user user'
-    'new-message new-message';
 }
 
 .title {
   text-align: center;
-  grid-area: title;
-}
-
-.userlist {
-  grid-area: userlist;
-}
-
-.chat {
-  grid-area: chat;
-}
-
-.user {
-  grid-area: user;
-}
-
-.new-message {
-  grid-area: new-message;
 }
