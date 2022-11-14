@@ -30,7 +30,7 @@ function createSession(req, res) {
   const loggedInUserList = userUtil.getAllUser();
 
   res.cookie("sid", sid);
-  res.json({ newUsername, sid, loggedInUserList });
+  res.json({ username: newUsername, sid, loggedInUserList });
 }
 
 function deleteSession(req, res) {
