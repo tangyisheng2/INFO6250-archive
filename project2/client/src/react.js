@@ -36,7 +36,7 @@ function renderChat() {
     })
     .join('');
   chatEl.innerHTML = chatListItemHTML
-    ? `<ol class=chat-list>${chatListItemHTML}<ol>`
+    ? `<ul class=chat-list>${chatListItemHTML}<ul>`
     : `<p class="chat-list empty">You dont have any chat yet.</p>`;
 }
 
@@ -44,14 +44,14 @@ function renderLogin() {
   const userEl = document.querySelector('.user');
   if (storage.username && storage.sid) {
     userEl.innerHTML = `
-                <span>Logged in as ${storage.username}. Not ${storage.username}? </span>
+                <span class='username-prompt'>Logged in as <span class='username'>${storage.username}</span>. Not <span class='username'>${storage.username}</span>? </span>
                 <button class='logout-button'>Log out</button>
             `;
   } else {
     userEl.innerHTML = `<form action="">
-      <span>You are not logged in.</span>
+      <span class='login-prompt'>You are not logged in.</span>
       <label>Login:
-        <input type="text" class="user-login-input"></label>
+        <input type="text" class="user-login-input" placeholder='Username'></label>
       <button type="submit" class="user-login-submit">Log In</button>
     </form>`;
   }
