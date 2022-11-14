@@ -123,6 +123,14 @@ function initEventListener() {
   });
 }
 
+function initPolling() {
+  setInterval(() => {
+    return fetchSession()
+      .then(() => fetchChat())
+      .then(() => render());
+  }, 5000);
+}
+
 module.exports = {
   fetchSession,
   createSession,
@@ -130,4 +138,5 @@ module.exports = {
   fetchChat,
   sendMessage,
   initEventListener,
+  initPolling,
 };

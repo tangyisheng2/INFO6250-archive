@@ -1,7 +1,15 @@
 'use strict';
-const { initEventListener, fetchSession } = require('./src/controller');
+const {
+  initEventListener,
+  fetchSession,
+  fetchChat,
+  initPolling,
+} = require('./src/controller');
 const render = require('./src/react');
 
-initEventListener();
-fetchSession().then(() => render());
+fetchSession()
+  .then(() => fetchChat())
+  .then(() => render());
 render();
+initEventListener();
+initPolling();
