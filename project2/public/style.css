@@ -9,6 +9,18 @@
   min-width: 600px;
 
   margin: auto;
+
+  display: grid;
+  grid-template-areas:
+    "title title" "err err" "userlist chat" "user user"
+    "msg-input msg-input";
+
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto;
+
+  padding: 1rem;
+
+  border: 2px solid black;
 }
 
 button {
@@ -26,22 +38,44 @@ button {
 
 .title {
   text-align: center;
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
 
-  margin-bottom: 1rem;
+  grid-area: title;
+
+  border-bottom: 2px solid black;
 }
 
 .warning-message {
   color: red;
-}
 
-.user {
-  width: fit-content;
-  /* margin: auto; */
-  margin-bottom: 0.5rem;
-}
+  grid-area: err;
 
-.username {
   font-weight: bold;
+}
+
+.loggedin-users {
+  grid-area: userlist;
+
+  margin: 1rem 0;
+
+  padding: 0 1rem 0 0;
+
+  border-right: 2px solid black;
+
+  list-style-type: disc;
+  list-style-position: inside;
+}
+
+.chat {
+  margin: 1rem 0;
+
+  padding-left: 1rem;
+
+  list-style-type: disc;
+  list-style-position: inside;
+
+  grid-area: chat;
 }
 
 .login-prompt {
@@ -49,13 +83,21 @@ button {
   margin-bottom: 0.5rem;
 }
 
+.user {
+  width: fit-content;
+  /* margin: auto; */
+  margin-bottom: 0.5rem;
+  grid-area: user;
+}
+
+.username {
+  font-weight: bold;
+}
+
 .username-prompt {
   text-align: left;
 }
 
-.chat {
-  margin: 1rem 0;
-
-  list-style-type: disc;
-  list-style-position: inside;
+.new-message {
+  grid-area: msg-input;
 }

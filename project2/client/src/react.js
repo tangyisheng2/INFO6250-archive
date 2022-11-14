@@ -52,7 +52,7 @@ function renderChat() {
     })
     .join("");
   chatEl.innerHTML = chatListItemHTML
-    ? `<ul class=chat-list>${chatListItemHTML}<ul>`
+    ? `<p>Chats: </p><ul class=chat-list>${chatListItemHTML}<ul>`
     : `<p class="chat-list empty">You dont have any chat yet.</p>`;
 }
 
