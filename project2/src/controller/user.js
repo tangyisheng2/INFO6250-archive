@@ -26,11 +26,11 @@ function createSession(req, res) {
     return;
   }
 
-  const sid = userUtil.addSession(username);
+  const { sid, newUsername } = userUtil.addSession(username);
   const loggedInUserList = userUtil.getAllUser();
 
   res.cookie("sid", sid);
-  res.json({ username, sid, loggedInUserList });
+  res.json({ newUsername, sid, loggedInUserList });
 }
 
 function deleteSession(req, res) {

@@ -1,6 +1,6 @@
-'use strict';
-const uuid = require('uuid').v4;
-const storage = require('../storage.js');
+"use strict";
+const uuid = require("uuid").v4;
+const storage = require("../storage.js");
 
 const sessions = storage.sessions;
 
@@ -20,9 +20,10 @@ function isValidMessage(word) {
 function addSession(username) {
   const sid = uuid();
   sessions[sid] = {
-    username,
+    username: `${username}#${new String(sid).slice(-4)}`,
   };
-  return sid;
+  const newUsername = sessions[sid].username;
+  return { sid, newUsername };
 }
 
 function getSessionUser(sid) {
