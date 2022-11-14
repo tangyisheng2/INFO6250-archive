@@ -91,6 +91,7 @@ function initEventListener() {
   const appEl = document.querySelector('#app');
   appEl.addEventListener('click', (e) => {
     e.preventDefault();
+    storage.warningMessage = '';
     console.log(e.target);
     console.log(e.target.className);
 
