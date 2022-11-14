@@ -11,6 +11,51 @@
   margin: auto;
 }
 
+button {
+  background: transparent;
+
+  padding: 0.25rem 0.25rem 0 0.25rem;
+  border: 0;
+  border-bottom: 2px solid blue;
+  color: blue;
+
+  font-size: medium;
+
+  cursor: pointer;
+}
+
 .title {
   text-align: center;
+
+  margin-bottom: 1rem;
+}
+
+.warning-message {
+  color: red;
+}
+
+.user {
+  width: fit-content;
+  /* margin: auto; */
+  margin-bottom: 0.5rem;
+}
+
+.username {
+  font-weight: bold;
+}
+
+.login-prompt {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.username-prompt {
+  text-align: left;
+}
+
+.chat {
+  margin: 1rem 0;
+
+  list-style-type: disc;
+  list-style-position: inside;
 }

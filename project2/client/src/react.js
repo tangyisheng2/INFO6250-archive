@@ -10,8 +10,9 @@ function render() {
 
 function renderWarningMessage() {
   const warningMessageEl = document.querySelector('.warning-message');
-  console.log(`warning message: ${storage.warningMessage}`);
-  warningMessageEl.innerHTML = storage.warningMessage || '';
+  warningMessageEl.innerHTML = storage.warningMessage
+    ? `<p>&#9888;${storage.warningMessage}</p>`
+    : '';
 }
 
 function renderChat() {
