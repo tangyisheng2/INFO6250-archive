@@ -99,23 +99,16 @@ function initEventListener() {
   appEl.addEventListener("click", (e) => {
     e.preventDefault();
     storage.warningMessage = "";
-    console.log(e.target);
-    console.log(e.target.className);
-
     switch (e.target.className) {
       case "user-login-submit":
         const username = document.querySelector(".user-login-input").value;
-        console.log(username);
         createSession(username)
           .then(() => fetchChat())
           .then(() => render())
           .catch(() => render());
         break;
       case "logout-button":
-        deleteSession().then(() => {
-          render();
-          console.log(storage);
-        });
+        deleteSession().then(() => render());
         break;
       case "new-message-submit":
         const message = document.querySelector(".new-message-input").value;

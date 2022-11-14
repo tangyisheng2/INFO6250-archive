@@ -16,7 +16,6 @@ function createSession(req, res) {
   const { username } = req.body;
 
   if (!userUtil.isValidUsername(username)) {
-    console.log(username);
     res.status(400).json({ error: "required-username" });
     return;
   }

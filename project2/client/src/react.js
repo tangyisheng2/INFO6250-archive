@@ -22,7 +22,6 @@ function renderUserlist() {
     userlistEl.innerHTML = "";
     return;
   }
-  console.log(storage);
   const userlistHTML = storage.loggedInUserList
     .map((username) => `<li class='user-list-item'>${username}</li>`)
     .join("");
