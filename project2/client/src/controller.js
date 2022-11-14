@@ -11,10 +11,11 @@ function fetchSession() {
       }
       return res.json();
     })
-    .then(({ username, sid }) => {
+    .then(({ username, sid, loggedInUsers }) => {
       if (username && sid) {
         storage.username = username;
         storage.sid = sid;
+        storage.loggedInUsers = loggedInUsers;
       }
     });
 }
@@ -78,6 +79,11 @@ function fetchChat() {
 }
 
 function sendMessage(message) {
+  if (!message) {
+    storage.warningMessage = 'Can not send empty message, try again!';
+    return Promise.resolve();
+  }
+
   return fetch('/api/v1/chat', {
     method: 'POST',
     headers: {
@@ -113,6 +119,7 @@ function initEventListener() {
       case 'new-message-submit':
         const message = document.querySelector('.new-message-input').value;
         sendMessage(message)
+          .catch((err) => render())
           .then(() => fetchChat())
           .then(() => render());
         break;

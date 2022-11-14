@@ -1,6 +1,6 @@
-"use strict";
-const uuid = require("uuid").v4;
-const storage = require("../storage.js");
+'use strict';
+const uuid = require('uuid').v4;
+const storage = require('../storage.js');
 
 const sessions = storage.sessions;
 
@@ -35,10 +35,15 @@ function deleteSession(sid) {
   delete sessions[sid];
 }
 
+function getAllUser(sid) {
+  return Object.keys(sessions).map((sid) => sessions[sid]?.username);
+}
+
 module.exports = {
   isValidUsername,
   isValidMessage,
   addSession,
   deleteSession,
   getSessionUser,
+  getAllUser,
 };
