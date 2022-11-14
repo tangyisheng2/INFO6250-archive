@@ -21,7 +21,7 @@ function fetchSession() {
 
 function createSession(username) {
   return fetch('/api/v1/user', {
-    method: 'POST',
+    method: 'PUT',
     headers: {
       'content-type': 'application/json',
     },
@@ -30,7 +30,10 @@ function createSession(username) {
     .catch((err) => Promise.reject({ error: 'network-error' }))
     .then((res) => {
       if (!res.ok) {
-        return res.json().then((err) => Promise.reject({ err }));
+        return res.json().then((err) => {
+          storage.warningMessage = 'Login failed, try again.';
+          return Promise.reject({ err });
+        });
       }
       return res.json();
     })
@@ -43,7 +46,19 @@ function createSession(username) {
 function deleteSession() {
   return fetch('/api/v1/user', {
     method: 'DELETE',
-  });
+  })
+    .catch((err) => Promise.reject({ err }))
+    .then((res) => {
+      if (!res.ok) {
+        return res.json().then((err) => Promise.reject(err));
+      }
+      return res.json();
+    })
+    .then(() => {
+      storage.username = undefined;
+      storage.sid = undefined;
+      storage.curChat = [];
+    });
 }
 
 function fetchChat() {
@@ -83,7 +98,22 @@ function initEventListener() {
       case 'user-login-submit':
         const username = document.querySelector('.user-login-input').value;
         console.log(username);
-        createSession(username).then(() => render());
+        createSession(username)
+          .then(() => fetchChat())
+          .then(() => render())
+          .catch(() => render());
+        break;
+      case 'logout-button':
+        deleteSession().then(() => {
+          render();
+          console.log(storage);
+        });
+        break;
+      case 'new-message-submit':
+        const message = document.querySelector('.new-message-input').value;
+        sendMessage(message)
+          .then(() => fetchChat())
+          .then(() => render());
         break;
 
       default:
