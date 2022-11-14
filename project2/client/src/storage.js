@@ -1,9 +1,10 @@
-'use strict';
+"use strict";
 const storage = {
   username: undefined,
   sid: undefined,
   curChat: [],
-  warningMessage: '',
+  warningMessage: "",
+  loggedInUserList: [],
 };
 
 module.exports = storage;

@@ -1,25 +1,40 @@
-'use strict';
-const storage = require('./storage');
+"use strict";
+const storage = require("./storage");
 
 function render() {
   renderWarningMessage();
   renderLogin();
+  renderUserlist();
   renderChat();
   renderMessageInput();
 }
 
 function renderWarningMessage() {
-  const warningMessageEl = document.querySelector('.warning-message');
+  const warningMessageEl = document.querySelector(".warning-message");
   warningMessageEl.innerHTML = storage.warningMessage
     ? `<p>&#9888;${storage.warningMessage}</p>`
-    : '';
+    : "";
+}
+
+function renderUserlist() {
+  const userlistEl = document.querySelector(".loggedin-users");
+  if (!storage.username || !storage.sid) {
+    userlistEl.innerHTML = "";
+    return;
+  }
+  console.log(storage);
+  const userlistHTML = storage.loggedInUserList
+    .map((username) => `<li class='user-list-item'>${username}</li>`)
+    .join("");
+
+  userlistEl.innerHTML = `<p>Active User:</p><ul class=user-list>${userlistHTML}</ul>`;
 }
 
 function renderChat() {
-  const chatEl = document.querySelector('.chat');
+  const chatEl = document.querySelector(".chat");
 
   if (!storage.username) {
-    chatEl.innerHTML = '';
+    chatEl.innerHTML = "";
     return;
   }
 
@@ -35,14 +50,14 @@ function renderChat() {
 
       return `<li class='chat-list-item'>${username}: ${message}</li>`;
     })
-    .join('');
+    .join("");
   chatEl.innerHTML = chatListItemHTML
     ? `<ul class=chat-list>${chatListItemHTML}<ul>`
     : `<p class="chat-list empty">You dont have any chat yet.</p>`;
 }
 
 function renderLogin() {
-  const userEl = document.querySelector('.user');
+  const userEl = document.querySelector(".user");
   if (storage.username && storage.sid) {
     userEl.innerHTML = `
                 <span class='username-prompt'>Logged in as <span class='username'>${storage.username}</span>. Not <span class='username'>${storage.username}</span>? </span>
@@ -59,10 +74,10 @@ function renderLogin() {
 }
 
 function renderMessageInput() {
-  const messageInputEl = document.querySelector('.new-message');
+  const messageInputEl = document.querySelector(".new-message");
 
   if (!storage.username) {
-    messageInputEl.innerHTML = '';
+    messageInputEl.innerHTML = "";
     return;
   }
 

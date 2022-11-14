@@ -8,7 +8,8 @@ function fetchCurrentSession(req, res) {
     res.status(401).json({ error: "auth-missing" });
     return;
   }
-  res.json({ username, sid });
+  const loggedInUserList = userUtil.getAllUser();
+  res.json({ username, sid, loggedInUserList });
 }
 
 function createSession(req, res) {
@@ -26,9 +27,10 @@ function createSession(req, res) {
   }
 
   const sid = userUtil.addSession(username);
+  const loggedInUserList = userUtil.getAllUser();
 
   res.cookie("sid", sid);
-  res.json({ username, sid });
+  res.json({ username, sid, loggedInUserList });
 }
 
 function deleteSession(req, res) {
