@@ -76,6 +76,9 @@ button {
   list-style-position: inside;
 
   grid-area: chat;
+
+  overflow: scroll;
+  max-height: 400px;
 }
 
 .login-prompt {
