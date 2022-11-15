@@ -5,7 +5,7 @@
 }
 
 #app {
-  width: fit-content;
+  /* width: fit-content; */
   min-width: 600px;
 
   margin: auto;
