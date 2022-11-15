@@ -53,6 +53,7 @@ function renderChat() {
   chatEl.innerHTML = chatListItemHTML
     ? `<p>Chats: </p><ul class=chat-list>${chatListItemHTML}<ul>`
     : `<p class="chat-list empty">You dont have any chat yet.</p>`;
+  chatEl.scroll(0, chatEl.scrollHeight); // Scroll to the end of the chat
 }
 
 function renderLogin() {
