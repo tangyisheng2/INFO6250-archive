@@ -5,6 +5,7 @@ const storage = {
   curChat: [],
   warningMessage: "",
   loggedInUserList: [],
+  messageDraft: "",
 };
 
 module.exports = storage;

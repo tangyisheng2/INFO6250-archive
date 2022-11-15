@@ -84,11 +84,11 @@ function renderMessageInput() {
   <form action="">
     <label>
       Send Message:
-      <input type="text" placeholder="Message" class="new-message-input">
+      <input type="text" placeholder="Message" class="new-message-input" value=${storage.messageDraft}>
     </label>
     <button type="submit" class="new-message-submit">Send</button>
   </form>
   `;
 }
 
-module.exports = render;
+module.exports = { render, renderChat };

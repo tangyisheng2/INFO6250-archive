@@ -1,5 +1,5 @@
 "use strict";
-const render = require("./react");
+const { render, renderChat } = require("./react");
 const storage = require("./storage");
 
 function fetchSession() {
@@ -112,6 +112,7 @@ function initEventListener() {
         break;
       case "new-message-submit":
         const message = document.querySelector(".new-message-input").value;
+        storage.messageDraft = "";
         sendMessage(message)
           .catch((err) => render())
           .then(() => fetchChat())
@@ -122,13 +123,19 @@ function initEventListener() {
         break;
     }
   });
+
+  const chatInputEl = document.querySelector("#app .new-message");
+  chatInputEl.addEventListener("input", (e) => {
+    e.preventDefault();
+    storage.messageDraft = e.target.value;
+  });
 }
 
 function initPolling() {
   setInterval(() => {
     return fetchSession()
       .then(() => fetchChat())
-      .then(() => render());
+      .then(() => renderChat());
   }, 5000);
 }
 

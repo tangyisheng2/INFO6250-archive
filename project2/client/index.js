@@ -5,7 +5,7 @@ const {
   fetchChat,
   initPolling,
 } = require("./src/controller");
-const render = require("./src/react");
+const { render } = require("./src/react");
 
 setTimeout(() => {
   fetchSession()
