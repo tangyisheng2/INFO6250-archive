@@ -1,0 +1,44 @@
+* {
+  padding: 0;
+  margin: 0;
+  font-family: sans-serif;
+}
+
+#app {
+  display: grid;
+  grid-template-areas: "title user" "err err" "main main" "words words";
+}
+
+.title {
+  margin: 1rem 0 1rem 1rem;
+}
+
+.user {
+  margin: auto 1rem auto auto;
+}
+
+.error-msg {
+  grid-area: err;
+
+  justify-self: center;
+
+  margin: 1rem;
+}
+
+.login-form {
+  grid-area: main;
+
+  justify-self: center;
+}
+
+.words {
+  grid-area: words;
+  justify-self: center;
+}
+
+.words p,
+.words form {
+  margin: 1rem 0;
+
+  justify-self: center;
+}
