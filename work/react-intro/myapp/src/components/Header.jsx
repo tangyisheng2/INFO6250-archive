@@ -10,14 +10,16 @@ function Header({ username, setUsername, setMessage }) {
         <button>Home</button>
       </div>
       <div className="user-status">
-        {username && <span>Hi, {username}</span>}
+        {username && <span className="user-status-name">Hi, {username}!</span>}
         {username ? (
           <span>
-            <button onClick={onLogout}>Log out</button>
+            <button className="user-status-logout" onClick={onLogout}>
+              Log out
+            </button>
           </span>
         ) : (
           <span>
-            <button>Log in</button>
+            <button className="user-status-logout">Log in</button>
           </span>
         )}
       </div>
