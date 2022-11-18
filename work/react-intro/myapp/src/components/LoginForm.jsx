@@ -18,7 +18,7 @@ function LoginForm({ setUsername, setMessage }) {
   };
   return (
     <div className="login-div">
-      <form action="" className="login-form" onSubmit={onLogin}>
+      <form action="" className="login-form" onSubmit={onLogin} method="POST">
         <label>
           <span>Username: </span>
           <input
