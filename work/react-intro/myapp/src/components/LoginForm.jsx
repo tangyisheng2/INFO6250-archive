@@ -12,8 +12,13 @@ function LoginForm({ setUsername, setMessage }) {
       setMessage(`Welcome! ${username}`);
       setUsernameInputValue("");
     } else {
-      setMessage(`Login Error, try again`);
-      setUsernameInputValue("");
+      if (username === "dog") {
+        setMessage(`Invalid User: ${username}`);
+        setUsernameInputValue("");
+      } else {
+        setMessage(`Username is not made up with valid characters`);
+        setUsernameInputValue("");
+      }
     }
   };
   return (
