@@ -10,11 +10,7 @@ const {
 
 function getSession(req, res) {
   const sid = req.cookies.sid;
-  const username = sid ? getSessionUser(sid) : "";
-  if (!sid || !username) {
-    res.status(401).json({ error: "auth-missing" });
-    return;
-  }
+  const username = getSessionUser(sid);
   res.json({ username, sid });
 }
 
