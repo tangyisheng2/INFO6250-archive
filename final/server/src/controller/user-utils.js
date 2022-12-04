@@ -81,18 +81,17 @@ function checkUsernameExist(username) {
  * This function adds a new user to storage.user
  * Called by user.register()
  * @param {*} username
- * @returns Userinfo in storage.user
+ * @returns userId
  */
 function addUser(username) {
-  const nextUserId = storage.currentUserId + 1;
-  storage.user[nextUserId] = {
+  const userId = getRandomID(5);
+  storage.user[userId] = {
     username,
     postId: [],
     commentId: [],
     isAdmin: false,
   };
-  storage.currentUserId = nextUserId;
-  return storage.currentUserId;
+  return userId;
 }
 
 /**
@@ -109,6 +108,11 @@ function getUidByUsername(username) {
     (key) => storage.user[key].username == username
   ); // Returns an array containing the valid uid (should only contain one element)
   return uid ? uid[0] : undefined;
+}
+
+function getRandomID(length) {
+  const uuidString = uuid().toString();
+  return uuidString.substring(uuidString.length - length);
 }
 
 module.exports = {
