@@ -38,11 +38,11 @@ function addSession(userId) {
 }
 
 /**
- * This function takes the userid and return the corresponsding username, if any
+ * This function takes the userid and return the corresponsding uid, if any
  * @param {String} sid session id
- * @returns {String} corresponding username (if have)
+ * @returns {String} corresponding uid (if have)
  */
-function getSessionUser(sid) {
+function getSessionUserId(sid) {
   return sessions[sid];
 }
 
@@ -54,13 +54,13 @@ function deleteSession(sid) {
   delete sessions[sid];
 }
 
-/**
- *
- * @returns {Array} This function returns all username on record
- */
-function getAllUser() {
-  return Object.keys(sessions).map((sid) => sessions[sid]?.username);
-}
+// /**
+//  *
+//  * @returns {Array} This function returns all username on record
+//  */
+// function getAllUser() {
+//   return Object.keys(sessions).map((sid) => sessions[sid]?.username);
+// }
 
 /**
  * This function checks if a username is already used.
@@ -69,11 +69,9 @@ function getAllUser() {
  * @returns if a username is already used
  */
 function checkUsernameExist(username) {
-  console.log(username);
   const registeredUsername = Object.keys(storage.user).map(
     (userId) => storage.user[userId]?.username
   );
-  console.log(registeredUsername);
   return registeredUsername.includes(username);
 }
 
@@ -120,8 +118,7 @@ module.exports = {
   isValidMessage,
   addSession,
   deleteSession,
-  getSessionUser,
-  getAllUser,
+  getSessionUserId,
   checkUsernameExist,
   addUser,
   getUidByUsername,

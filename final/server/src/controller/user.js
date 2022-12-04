@@ -1,6 +1,6 @@
 const storage = require("../storage");
 const {
-  getSessionUser,
+  getSessionUserId,
   checkUsernameExist,
   isValidUsername,
   addUser,
@@ -11,7 +11,7 @@ const {
 
 function getSession(req, res) {
   const sid = req.cookies.sid;
-  const userId = getSessionUser(sid);
+  const userId = getSessionUserId(sid);
   const username = storage.user[userId]?.username;
   const isAdmin = storage.user[userId]?.isAdmin;
   res.json({ userId, username, sid, isAdmin });
