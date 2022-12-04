@@ -16,6 +16,11 @@ function isValidUsername(username) {
   return isValid;
 }
 
+/**
+ * This function checks if a message is valid
+ * @param {String} message message
+ * @returns {Boolean} if message is valid
+ */
 function isValidMessage(message) {
   let isValid = true;
   return isValid;
@@ -26,11 +31,9 @@ function isValidMessage(message) {
  * @param {*} username
  * @returns
  */
-function addSession(username) {
+function addSession(userId) {
   const sid = uuid();
-  sessions[sid] = {
-    username,
-  };
+  sessions[sid] = userId;
   return { sid };
 }
 
@@ -40,7 +43,7 @@ function addSession(username) {
  * @returns {String} corresponding username (if have)
  */
 function getSessionUser(sid) {
-  return sessions[sid]?.username;
+  return sessions[sid];
 }
 
 /**
@@ -59,16 +62,52 @@ function getAllUser() {
   return Object.keys(sessions).map((sid) => sessions[sid]?.username);
 }
 
+/**
+ * This function checks if a username is already used.
+ * Called by user.register()
+ * @param {String} username
+ * @returns if a username is already used
+ */
 function checkUsernameExist(username) {
   console.log(username);
-  return username in storage.user;
+  const registeredUsername = Object.keys(storage.user).map(
+    (userId) => storage.user[userId]?.username
+  );
+  console.log(registeredUsername);
+  return registeredUsername.includes(username);
 }
 
+/**
+ * This function adds a new user to storage.user
+ * Called by user.register()
+ * @param {*} username
+ * @returns Userinfo in storage.user
+ */
 function addUser(username) {
-  storage.user[username] = {
+  const nextUserId = storage.currentUserId + 1;
+  storage.user[nextUserId] = {
+    username,
     postId: [],
     commentId: [],
   };
+  storage.currentUserId = nextUserId;
+  return storage.currentUserId;
+}
+
+/**
+ * This method get uid by username.
+ * Called by user.login(), when user login,
+ * need to update storage.session with the uid
+ * using this function
+ * If uid is not found, return undefined
+ * @param {String} username username
+ * @returns uid
+ */
+function getUidByUsername(username) {
+  const uid = Object.keys(storage.user).filter(
+    (key) => storage.user[key].username == username
+  ); // Returns an array containing the valid uid (should only contain one element)
+  return uid ? uid[0] : undefined;
 }
 
 module.exports = {
@@ -80,4 +119,5 @@ module.exports = {
   getAllUser,
   checkUsernameExist,
   addUser,
+  getUidByUsername,
 };

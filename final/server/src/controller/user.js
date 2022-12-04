@@ -6,12 +6,14 @@ const {
   addUser,
   addSession,
   deleteSession,
+  getUidByUsername,
 } = require("./user-utils");
 
 function getSession(req, res) {
   const sid = req.cookies.sid;
-  const username = getSessionUser(sid);
-  res.json({ username, sid });
+  const userId = getSessionUser(sid);
+  const username = storage.user[userId]?.username;
+  res.json({ userId, username, sid });
 }
 
 function login(req, res) {
@@ -26,8 +28,9 @@ function login(req, res) {
     res.status(401).json({ error: "auth-error" });
     return;
   }
+  const userId = getUidByUsername(username);
+  const { sid } = addSession(userId);
 
-  const { sid } = addSession(username);
   res.cookie("sid", sid);
   res.send({
     username,
@@ -46,10 +49,10 @@ function register(req, res) {
     return;
   }
 
-  addUser(username);
-  const { sid } = addSession(username);
+  const userId = addUser(username);
+  const { sid } = addSession(userId);
   res.cookie("sid", sid);
-  res.json({ username });
+  res.json({ userId, username });
 }
 
 function logout(req, res) {
