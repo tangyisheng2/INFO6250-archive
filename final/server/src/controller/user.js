@@ -13,7 +13,8 @@ function getSession(req, res) {
   const sid = req.cookies.sid;
   const userId = getSessionUser(sid);
   const username = storage.user[userId]?.username;
-  res.json({ userId, username, sid });
+  const isAdmin = storage.user[userId]?.isAdmin;
+  res.json({ userId, username, sid, isAdmin });
 }
 
 function login(req, res) {
@@ -30,10 +31,14 @@ function login(req, res) {
   }
   const userId = getUidByUsername(username);
   const { sid } = addSession(userId);
+  const isAdmin = storage.user[userId]?.isAdmin;
 
   res.cookie("sid", sid);
   res.send({
     username,
+    userId,
+    sid,
+    isAdmin,
   });
 }
 
@@ -51,8 +56,9 @@ function register(req, res) {
 
   const userId = addUser(username);
   const { sid } = addSession(userId);
+  const isAdmin = storage.user[userId]?.isAdmin;
   res.cookie("sid", sid);
-  res.json({ userId, username });
+  res.json({ userId, username, sid, isAdmin });
 }
 
 function logout(req, res) {

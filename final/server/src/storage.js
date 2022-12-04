@@ -7,6 +7,7 @@ const storage = {
       username: "admin",
       postId: [1],
       commentId: [],
+      isAdmin: true,
     },
   }, // {userId: {name, postId, commentId}}
   post: { 1: { title: "Hello World!", content: "This is your first post" } }, // {postId: userId, title, content, cover}

@@ -89,6 +89,7 @@ function addUser(username) {
     username,
     postId: [],
     commentId: [],
+    isAdmin: false,
   };
   storage.currentUserId = nextUserId;
   return storage.currentUserId;
