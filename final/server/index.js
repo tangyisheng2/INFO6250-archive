@@ -3,7 +3,8 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const uuid = require("uuid");
-const route = require("./src/routes/user-route");
+const userRoute = require("./src/routes/user-route");
+const postRoute = require("./src/routes/post-route");
 
 const PORT = 3000;
 
@@ -16,7 +17,8 @@ app.get("/", (req, res) => {
   res.send("It works");
 });
 
-app.use(route);
+app.use(userRoute);
+app.use(postRoute);
 
 app.listen(PORT, () => {
   console.log(`Listening http://localhost:${PORT}`);
