@@ -1,3 +1,4 @@
+"use strict";
 const { getSessionUserId } = require("../controller/user-utils");
 const storage = require("../storage");
 

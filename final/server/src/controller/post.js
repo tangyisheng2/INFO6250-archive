@@ -1,3 +1,4 @@
+"use strict";
 const storage = require("../storage");
 const { getRandomID } = require("./common");
 const { getSessionUserId } = require("./user-utils");
