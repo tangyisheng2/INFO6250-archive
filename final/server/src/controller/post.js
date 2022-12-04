@@ -1,13 +1,13 @@
 const storage = require("../storage");
 const { getRandomID } = require("./common");
-const { getSessionUser } = require("./user-utils");
+const { getSessionUserId } = require("./user-utils");
 
 function getPost(req, res) {
   res.json(storage.post);
 }
 function addPost(req, res) {
   const sid = req.cookies.sid;
-  const userId = getSessionUser(sid);
+  const userId = getSessionUserId(sid);
 
   const postId = getRandomID(5);
 
@@ -28,7 +28,7 @@ function addPost(req, res) {
 
 function updatePost(req, res) {
   const sid = req.cookies.sid;
-  const userId = getSessionUser(sid);
+  const userId = getSessionUserId(sid);
 
   const postId = req.body.postId;
 
@@ -56,7 +56,7 @@ function updatePost(req, res) {
 
 function deletePost(req, res) {
   const sid = req.cookies.sid;
-  const userId = getSessionUser(sid);
+  const userId = getSessionUserId(sid);
 
   const postId = req.body.postId;
 
