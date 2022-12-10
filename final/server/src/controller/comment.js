@@ -5,8 +5,11 @@ const { getSessionUserId } = require("./user-utils");
 
 function getComment(req, res) {
   const postId = req.params.id;
-
-  res.json({ postId, comments: { ...storage.commentForPost[postId] } });
+  const ret = Object.keys(storage.commentForPost[postId]).map((commentId) => {
+    return { commentId, ...storage.commentForPost[postId][commentId] };
+  });
+  ret.sort((a, b) => b.createDate - a.createDate);
+  res.json(ret);
 }
 
 function addComment(req, res) {
@@ -21,6 +24,7 @@ function addComment(req, res) {
   storage.commentForPost[postId][commentId] = {
     content,
     userId: uid,
+    createDate: new Date(),
   };
   console.log(storage);
 

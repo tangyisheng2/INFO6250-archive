@@ -4,7 +4,11 @@ const { getRandomID } = require("./common");
 const { getSessionUserId } = require("./user-utils");
 
 function getPost(req, res) {
-  res.json(storage.post);
+  const ret = Object.keys(storage.post).map((postId) => {
+    return { postId, ...storage.post[postId] };
+  });
+  ret.sort((a, b) => b.createDate - a.createDate);
+  res.json(ret);
 }
 function addPost(req, res) {
   const sid = req.cookies.sid;
@@ -22,8 +26,8 @@ function addPost(req, res) {
     content,
     cover,
     likeCount: 0,
+    createDate: new Date(),
   };
-
   res.json({ postId, ...storage.post[postId] });
 }
 
