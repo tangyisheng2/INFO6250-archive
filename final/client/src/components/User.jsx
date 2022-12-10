@@ -2,17 +2,14 @@ import { useState } from "react";
 import { UserConstant } from "../constants/user-constant.js";
 
 function User({ userInfo, setUserinfo, setErrorMessage }) {
-  console.log(userInfo);
   const username = userInfo?.username;
-  const [userDivState, setUserDivState] = useState(
-    username ? UserConstant.WELCOMESTATE : UserConstant.LOGIN
-  );
+
+  const [userDivState, setUserDivState] = useState(UserConstant.LOGIN);
 
   function onLoginSubmit(e) {
     setErrorMessage(""); // Clean error message before any move
     e.preventDefault();
     const username = e.target.username.value;
-    console.log(username);
     fetch("/api/v1/user", {
       method: "POST",
       headers: {
@@ -151,11 +148,16 @@ function User({ userInfo, setUserinfo, setErrorMessage }) {
 
   return (
     <div className="user-div">
-      {[UserConstant.LOGIN, UserConstant.REGISTER].includes(userDivState) &&
+      {userInfo?.username && userWelcomeInfo}
+      {!userInfo?.username &&
+        [UserConstant.LOGIN, UserConstant.REGISTER].includes(userDivState) &&
         userDivPageSelectorForm}
-      {userDivState === UserConstant.WELCOMESTATE && userWelcomeInfo}
-      {userDivState === UserConstant.LOGIN && userLoginForm}
-      {userDivState === UserConstant.REGISTER && userRegisterForm}
+      {!userInfo?.username &&
+        userDivState === UserConstant.LOGIN &&
+        userLoginForm}
+      {!userInfo?.username &&
+        userDivState === UserConstant.REGISTER &&
+        userRegisterForm}
     </div>
   );
 }
