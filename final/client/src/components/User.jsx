@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { UserConstant } from "../constants/UserConstant";
+import { UserConstant } from "../constants/user-constant.js";
 
 function User({ userInfo, setUserinfo, setErrorMessage }) {
   console.log(userInfo);
