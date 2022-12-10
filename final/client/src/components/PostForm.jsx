@@ -1,4 +1,4 @@
 function PostForm() {
-  return <div className="post-form">postform</div>;
+  return <div className="post-form"></div>;
 }
 export default PostForm;
