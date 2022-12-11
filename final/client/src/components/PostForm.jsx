@@ -1,6 +1,6 @@
 import PostFormConstant from "../constants/post-form-constant";
 import { PostReducerConstant } from "../constants/post-reducer-constant";
-
+import { updatePost, createPost } from "../controller/post-controller";
 function PostForm({
   postFormInfo,
   dispatchPostFormInfo,
@@ -55,6 +55,7 @@ function PostForm({
           dispatchPostInfo({
             type: PostReducerConstant.UPDATE_POST,
             payload: {
+              postId,
               updateField: res,
             },
           });
@@ -73,55 +74,30 @@ function PostForm({
   }
 
   /**
-   * This function make an HTTP PUT request to server to create a post.
-   * @param {Object} body Query body
-   * @returns Post body that it just created
-   */
-  function createPost(body) {
-    return fetch("/api/v1/post", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    })
-      .catch((error) => Promise.reject(error))
-      .then((response) => {
-        if (!response.ok) {
-          response.json().then(({ error }) => {
-            setErrorMessage(error);
-            return Promise.reject(error);
-          });
-        }
-        return response.json();
-      });
-  }
-
-  /**
    * This function make an HTTP POST request to server to update a post.
    * @param {String} postId Post ID to be updated
    * @param {*} body Query Body
    * @returns Post body that it just updated
    */
-  function updatePost(postId, body) {
-    return fetch("/api/v1/post", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ postId, ...body }),
-    })
-      .catch((error) => Promise.reject(error))
-      .then((response) => {
-        if (!response.ok) {
-          response.json().then(({ error }) => {
-            setErrorMessage(error);
-            return Promise.reject(error);
-          });
-        }
-        return response.json();
-      });
-  }
+  // function updatePost(postId, body) {
+  //   return fetch("/api/v1/post", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({ postId, ...body }),
+  //   })
+  //     .catch((error) => Promise.reject(error))
+  //     .then((response) => {
+  //       if (!response.ok) {
+  //         response.json().then(({ error }) => {
+  //           setErrorMessage(error);
+  //           return Promise.reject(error);
+  //         });
+  //       }
+  //       return response.json();
+  //     });
+  // }
 
   return (
     <div className="post-form">

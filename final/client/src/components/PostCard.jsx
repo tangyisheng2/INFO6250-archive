@@ -1,5 +1,6 @@
 import PostFormConstant from "../constants/post-form-constant";
 import { PostReducerConstant } from "../constants/post-reducer-constant";
+import { deletePost, updatePost } from "../controller/post-controller";
 import PostComment from "./PostComment";
 
 function PostCard({
@@ -13,90 +14,35 @@ function PostCard({
 
   function onLikePost(e) {
     e.preventDefault();
-    const body = { userId, postId, likeCount: likeCount + 1 };
-    fetch("/api/v1/post", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    })
-      .catch((error) => {
-        return Promise.reject(error);
-      })
-      .then((response) => {
-        if (!response.ok) {
-          return response.json().then(({ error }) => {
-            setErrorMessage(error);
-            return Promise.reject({ error });
-          });
-        }
-        return response.json();
-      })
-      .then((res) => {
-        const action = {
-          type: PostReducerConstant.UPDATE_POST,
-          payload: {
-            postId,
-            updateField: {
-              likeCount: res.likeCount,
-            },
+    const body = { likeCount: likeCount + 1 };
+    updatePost(postId, body).then((res) => {
+      console.log(res);
+      const action = {
+        type: PostReducerConstant.UPDATE_POST,
+        payload: {
+          postId,
+          updateField: {
+            likeCount: res.likeCount,
           },
-        };
-        dispatchPostInfo(action);
-      });
+        },
+      };
+      dispatchPostInfo(action);
+    });
   }
 
   function onDeletePost(e) {
-    const body = { postId };
-    fetch("/api/v1/post", {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    })
-      .catch((error) => {
-        return Promise.reject(error);
-      })
-      .then((response) => {
-        if (!response.ok) {
-          return response.json().then(({ error }) => {
-            setErrorMessage(error);
-            return Promise.reject({ error });
-          });
-        }
-        return response.json();
-      })
-      .then((res) => {
-        const action = {
-          type: PostReducerConstant.DELETE_POST,
-          payload: {
-            res,
-          },
-        };
-        dispatchPostInfo(action);
-      });
-
-    const action = {
-      type: PostReducerConstant.DELETE_POST,
-      payload: {
-        postId,
-      },
-    };
-    dispatchPostInfo(action);
+    deletePost(postId).then((res) => {
+      const action = {
+        type: PostReducerConstant.DELETE_POST,
+        payload: {
+          postId: res.postId,
+        },
+      };
+      dispatchPostInfo(action);
+    });
   }
 
   function onEditPost(e) {
-    // TODO: FINISH THIS
-    // const action = {
-    //   type: PostReducerConstant.UPDATE_POST,
-    //   payload: {
-    //     postId,
-    //     updateField: { title: `${title}-edited` },
-    //   },
-    // };
-    // dispatchPostInfo(action);
     const action = {
       type: PostFormConstant.UPDATE,
       payload: { postId, title, content, cover },
