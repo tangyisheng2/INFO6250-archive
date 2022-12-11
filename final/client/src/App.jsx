@@ -20,6 +20,7 @@ function App() {
     formInfo: {
       title: "",
       content: "",
+      cover: "",
     },
   });
   const [errorMessage, setErrorMessage] = useState("");

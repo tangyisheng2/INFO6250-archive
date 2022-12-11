@@ -11,7 +11,7 @@ function PostForm({
 
   /**
    * This method take the input change on the input field and update it to the state
-   * @param {Event} e Event Object triggered by input change in the input field
+   * @param {Event} e Event object of the form
    */
   function onInputChange(e) {
     e.preventDefault();
@@ -23,6 +23,10 @@ function PostForm({
     dispatchPostFormInfo(actionObj);
   }
 
+  /**
+   * This method submit the form data to the backend.
+   * @param {Event} e Event object of the form
+   */
   function onSubmitForm(e) {
     e.preventDefault();
     const formBody = {
@@ -45,14 +49,42 @@ function PostForm({
 
         break;
       case PostFormConstant.UPDATE:
-        const postId = postFormInfo.postId;
-        updatePost(postId, formBody);
-        dispatchPostFormInfo({
-          type: postFormInfo.CREATE,
+        const postId = postFormInfo.formInfo.postId;
+        updatePost(postId, formBody).then((res) => {
+          dispatchPostFormInfo({
+            type: PostFormConstant.CREATE,
+          });
+          dispatchPostInfo({
+            type: PostReducerConstant.UPDATE_POST,
+            payload: {
+              updateField: res,
+            },
+          });
+          console.log({
+            type: PostReducerConstant.UPDATE_POST,
+            payload: {
+              updateField: res,
+            },
+          });
         });
     }
   }
 
+  /**
+   * This function resets all the form stats,
+   * including the form working mode and  all the data in input field
+   */
+  function onResetForm() {
+    dispatchPostFormInfo({
+      type: PostFormConstant.CLEAR,
+    });
+  }
+
+  /**
+   * This function make an HTTP PUT request to server to create a post.
+   * @param {Object} body Query body
+   * @returns Post body that it just created
+   */
   function createPost(body) {
     return fetch("/api/v1/post", {
       method: "PUT",
@@ -72,9 +104,17 @@ function PostForm({
         return response.json();
       });
   }
+
+  /**
+   * This function make an HTTP POST request to server to update a post.
+   * @param {String} postId Post ID to be updated
+   * @param {*} body Query Body
+   * @returns Post body that it just updated
+   */
   function updatePost(postId, body) {
-    fetch("/api/v1/post", {
-      method: "PUT",
+    console.log({ postId, ...body });
+    return fetch("/api/v1/post", {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
@@ -89,22 +129,20 @@ function PostForm({
           });
         }
         return response.json();
-      })
-      .then((res) => {
-        console.log(res);
       });
   }
 
   return (
     <div className="post-form">
-      <form action="" onSubmit={onSubmitForm}>
+      <form action="" onSubmit={onSubmitForm} onReset={onResetForm}>
         <label htmlFor="">
           Title:{" "}
           <input
             type="text"
             name="title"
-            value={postFormInfo.title}
+            value={postFormInfo.formInfo.title}
             onChange={onInputChange}
+            required
           />
         </label>
         <label htmlFor="">
@@ -112,11 +150,13 @@ function PostForm({
           <input
             type="text"
             name="content"
-            value={postFormInfo.content}
+            value={postFormInfo.formInfo.content}
             onChange={onInputChange}
+            required
           />
         </label>
         <button type="submit">Submit</button>
+        <button type="reset">Reset</button>
       </form>
     </div>
   );

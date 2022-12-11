@@ -1,8 +1,15 @@
+import PostFormConstant from "../constants/post-form-constant";
 import { PostReducerConstant } from "../constants/post-reducer-constant";
 
-function PostCard({ postInfoItem, dispatchPostInfo, setErrorMessage }) {
+function PostCard({
+  postInfoItem,
+  dispatchPostInfo,
+  dispatchPostFormInfo,
+  setErrorMessage,
+}) {
   const { postId, userId, title, content, cover, likeCount, createDate } =
     postInfoItem;
+
   function onLikePost(e) {
     e.preventDefault();
     const body = { userId, postId, likeCount: likeCount + 1 };
@@ -85,14 +92,19 @@ function PostCard({ postInfoItem, dispatchPostInfo, setErrorMessage }) {
 
   function onEditPost(e) {
     // TODO: FINISH THIS
+    // const action = {
+    //   type: PostReducerConstant.UPDATE_POST,
+    //   payload: {
+    //     postId,
+    //     updateField: { title: `${title}-edited` },
+    //   },
+    // };
+    // dispatchPostInfo(action);
     const action = {
-      type: PostReducerConstant.UPDATE_POST,
-      payload: {
-        postId,
-        updateField: { title: `${title}-edited` },
-      },
+      type: PostFormConstant.UPDATE,
+      payload: { postId, title, content, cover },
     };
-    dispatchPostInfo(action);
+    dispatchPostFormInfo(action);
   }
 
   return (

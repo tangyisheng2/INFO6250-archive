@@ -23,15 +23,22 @@ function reducer(state, action) {
         },
       };
     case PostFormConstant.CHANGE:
-      const newState = {
+      return {
         state: state.state,
         formInfo: {
           ...state.formInfo,
-          ...action.payload,
+          ...payload,
         },
       };
-      console.log(newState);
-      return newState;
+    case PostFormConstant.CLEAR:
+      return {
+        state: PostFormConstant.CREATE,
+        formInfo: {
+          title: "",
+          content: "",
+          cover: "",
+        },
+      };
     default:
       return state;
   }
