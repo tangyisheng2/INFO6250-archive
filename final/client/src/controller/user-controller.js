@@ -1,6 +1,27 @@
 "use strict";
 
 /**
+ * This method fetch the current user in session
+ * @returns {Promise} userInfo object
+ */
+export function fetchCurrentSession() {
+  // Fetch Current Session User
+  return fetch("/api/v1/user")
+    .catch((error) => {
+      // setErrorMessage(error);
+      return Promise.reject(error);
+    })
+    .then((response) => {
+      if (!response.ok) {
+        return response.json().then((error) => {
+          return Promise.reject(error);
+        });
+      }
+      return response.json();
+    });
+}
+
+/**
  * This function makes an HTTP POST log in request to the server.
  * @param {Object} body request body {username} 
  * @returns {Promise} userInfo in JSON

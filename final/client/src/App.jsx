@@ -12,6 +12,8 @@ import postFormReducer from "./reducer/post-form-reducer";
 import { useEffect } from "react";
 import { PostReducerConstant } from "./constants/post-reducer-constant";
 import PostFormConstant from "./constants/post-form-constant";
+import { fetchCurrentSession } from "./controller/user-controller";
+import { fetchPost } from "./controller/post-controller";
 
 function App() {
   const [userInfo, setUserinfo] = useState({});
@@ -27,27 +29,9 @@ function App() {
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    // Fetch Current Session User
-    fetch("/api/v1/user")
-      .catch((error) => {
-        // setErrorMessage(error);
-        return Promise.reject(error);
-      })
-      .then((response) => {
-        if (!response.ok) {
-          return response.json().then(({ error }) => {
-            // We are not setting the error message as the first time user
-            // visit out website would be annoying
-            setErrorMessage(error);
-            return Promise.reject(error);
-          });
-        }
-        return response.json();
-      })
-      .then((res) => {
-        setErrorMessage("");
-        setUserinfo(res);
-      });
+    fetchCurrentSession().then((res) => {
+      setUserinfo(res);
+    });
   }, []);
 
   useEffect(() => {
@@ -56,28 +40,13 @@ function App() {
       type: PostReducerConstant.GET_POST,
       payload: [],
     });
-    // Fetch Post
-    fetch("/api/v1/post")
-      .catch(({ error }) => {
-        setErrorMessage(error);
-        return Promise.reject(error);
-      })
-      .then((response) => {
-        if (!response.ok) {
-          return response.json().then(({ error }) => {
-            setErrorMessage(error);
-            return Promise.reject(error);
-          });
-        }
-        return response.json();
-      })
-      .then((res) => {
-        const action = {
-          type: PostReducerConstant.GET_POST,
-          payload: res,
-        };
-        dispatchPostInfo(action);
-      });
+    fetchPost().then((res) => {
+      const action = {
+        type: PostReducerConstant.GET_POST,
+        payload: res,
+      };
+      dispatchPostInfo(action);
+    });
   }, [userInfo]);
 
   return (

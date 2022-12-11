@@ -1,6 +1,22 @@
 "use strict";
 
 /**
+ * This method fetches the post from the server
+ * @returns {Promise} postInfo object
+ */
+export function fetchPost() {
+  // Fetch Post
+  return fetch("/api/v1/post")
+    .catch((error) => Promise.reject(error))
+    .then((response) => {
+      if (!response.ok) {
+        return response.json().then((error) => Promise.reject(error));
+      }
+      return response.json();
+    });
+}
+
+/**
  * This method update post $postId with fields in updateField.
  * @param {String} postId Post $postId to update
  * @param {Object} updateField An object containing fields to be update
