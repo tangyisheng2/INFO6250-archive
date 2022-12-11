@@ -4,6 +4,7 @@ import PostList from "./components/PostList";
 import PostForm from "./components/PostForm";
 import User from "./components/User";
 import Footer from "./components/Footer";
+import ErrorMessage from "./components/ErrorMessage";
 import { useState } from "react";
 import { useReducer } from "react";
 import postReducer from "./reducer/post-reducer";
@@ -82,7 +83,7 @@ function App() {
   return (
     <div className="app">
       <Header />
-      <p>{errorMessage}</p>
+      <ErrorMessage errorMessage={errorMessage} />
       <PostList
         userInfo={userInfo}
         postInfo={postInfo}
@@ -90,12 +91,14 @@ function App() {
         dispatchPostFormInfo={dispatchPostFormInfo}
         setErrorMessage={setErrorMessage}
       />
-      <PostForm
-        postFormInfo={postFormInfo}
-        dispatchPostFormInfo={dispatchPostFormInfo}
-        dispatchPostInfo={dispatchPostInfo}
-        setErrorMessage={setErrorMessage}
-      />
+      {userInfo?.userId && (
+        <PostForm
+          postFormInfo={postFormInfo}
+          dispatchPostFormInfo={dispatchPostFormInfo}
+          dispatchPostInfo={dispatchPostInfo}
+          setErrorMessage={setErrorMessage}
+        />
+      )}
       <User
         userInfo={userInfo}
         setUserinfo={setUserinfo}
