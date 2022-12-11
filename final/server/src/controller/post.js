@@ -44,8 +44,18 @@ function updatePost(req, res) {
   const cover = req.body.cover || storage.post[postId].cover;
   const likeCount = req.body.likeCount || storage.post[postId].likeCount;
 
-  // If user is neither the author of the post or admin, they can not modify the post
-  if (userId != storage.post[postId].userId && !storage.user[userId]?.isAdmin) {
+  /**
+   * Check if a user can edit a post, there are 3 case that the user can edit the post:
+   * 1. User is admin
+   * 2. User is not admin, but is the author of the current post
+   * 3. User is going to "Like" the post
+   */
+  if (
+    userId != storage.post[postId].userId &&
+    !storage.user[userId]?.isAdmin &&
+    Object.keys(req.body).length != 2 &&
+    req.body.likeCount === undefined
+  ) {
     res.status(401).json({ error: "permission-denied" });
     return;
   }
