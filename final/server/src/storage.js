@@ -15,7 +15,7 @@ const storage = {
       userId: "1",
       title: "Hello World!",
       content: "This is your first post",
-      cover: "",
+      cover: "https://placekitten.com/1600/900",
       likeCount: 0,
       createDate: new Date("2022-01-01"),
     },
