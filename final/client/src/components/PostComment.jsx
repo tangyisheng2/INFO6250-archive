@@ -8,6 +8,7 @@ import {
 function PostComment({ postId }) {
   const [commentList, setCommentList] = useState([]);
   const [commentExpanded, setCommentExpanded] = useState(false);
+  const [commentTextarea, setCommentTextarea] = useState("");
 
   function onToggleComment() {
     setCommentExpanded(!commentExpanded);
@@ -19,6 +20,11 @@ function PostComment({ postId }) {
     addCommentForPost(postId, content).then((res) =>
       setCommentList([res, ...commentList])
     );
+    setCommentTextarea("");
+  }
+
+  function onChangeComment(e) {
+    setCommentTextarea(e.target.value);
   }
 
   useEffect(() => {
@@ -27,11 +33,14 @@ function PostComment({ postId }) {
 
   return (
     <div className="comment">
-      <button onClick={onToggleComment}>
+      <button
+        className={`comment-button ${commentExpanded ? "expanded" : ""}`}
+        onClick={onToggleComment}
+      >
         {commentExpanded ? "Comment ✖" : "Comment ☰"}
       </button>
       {commentExpanded && (
-        <>
+        <div className="comment-content">
           <ul className="comment-list">
             {commentList.map((commentItem) => (
               <li className="comment-list-item" key={commentItem.commentId}>
@@ -52,11 +61,17 @@ function PostComment({ postId }) {
           >
             <label>
               New comments:
-              <input type="text" name="comment-new" />
+              <textarea
+                type="text"
+                name="comment-new"
+                rows={5}
+                onChange={onChangeComment}
+                value={commentTextarea}
+              />
             </label>
             <button type="submit">Submit</button>
           </form>
-        </>
+        </div>
       )}
     </div>
   );
