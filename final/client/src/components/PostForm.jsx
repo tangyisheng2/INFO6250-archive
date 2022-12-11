@@ -73,35 +73,19 @@ function PostForm({
     });
   }
 
-  /**
-   * This function make an HTTP POST request to server to update a post.
-   * @param {String} postId Post ID to be updated
-   * @param {*} body Query Body
-   * @returns Post body that it just updated
-   */
-  // function updatePost(postId, body) {
-  //   return fetch("/api/v1/post", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({ postId, ...body }),
-  //   })
-  //     .catch((error) => Promise.reject(error))
-  //     .then((response) => {
-  //       if (!response.ok) {
-  //         response.json().then(({ error }) => {
-  //           setErrorMessage(error);
-  //           return Promise.reject(error);
-  //         });
-  //       }
-  //       return response.json();
-  //     });
-  // }
+  function getFormTitle() {
+    switch (currentState) {
+      case PostFormConstant.CREATE:
+        return <h3 className="post-form-header">Create New Post</h3>;
+      case PostFormConstant.UPDATE:
+        return <h3 className="post-form-header">Update Post</h3>;
+    }
+  }
 
   return (
     <div className="post-form">
       <form action="" onSubmit={onSubmitForm} onReset={onResetForm}>
+        {getFormTitle()}
         <label htmlFor="">
           Title:{" "}
           <input
@@ -114,16 +98,29 @@ function PostForm({
         </label>
         <label htmlFor="">
           Content:{" "}
-          <input
+          <textarea
             type="text"
             name="content"
             value={postFormInfo.formInfo.content}
             onChange={onInputChange}
+            rows={5}
             required
           />
         </label>
-        <button type="submit">Submit</button>
-        <button type="reset">Reset</button>
+        <label htmlFor="">
+          Cover Image URL:{" "}
+          <input
+            type="text"
+            name="cover"
+            value={postFormInfo.formInfo.cover}
+            onChange={onInputChange}
+            required
+          />
+        </label>
+        <div className="post-form-action">
+          <button type="submit">Submit</button>
+          <button type="reset">Reset</button>
+        </div>
       </form>
     </div>
   );
