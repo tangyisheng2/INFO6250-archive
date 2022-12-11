@@ -76,7 +76,7 @@ function User({ userInfo, setUserinfo, setErrorMessage }) {
 
   const userDivPageSelectorForm = (
     <>
-      <form action="">
+      <form className="user-page-selector">
         <button onClick={onSwitchLogIn}>Log In</button>
         <button onClick={onSwitchRegister}>Sign Up</button>
       </form>
@@ -85,8 +85,8 @@ function User({ userInfo, setUserinfo, setErrorMessage }) {
 
   const userLoginForm = (
     <>
-      <form action="" onSubmit={onLoginSubmit}>
-        <p>Log in</p>
+      <form className="user-login" onSubmit={onLoginSubmit}>
+        <h2 className="user-header">Log In</h2>
         <label>
           Username:{" "}
           <input
@@ -103,8 +103,8 @@ function User({ userInfo, setUserinfo, setErrorMessage }) {
 
   const userRegisterForm = (
     <>
-      <form action="" onSubmit={onRegisterSubmit}>
-        <p>Register a new account</p>
+      <form className="user-register" onSubmit={onRegisterSubmit}>
+        <h2 className="user-header">Register a new account</h2>
         <label>
           Username:{" "}
           <input
@@ -121,9 +121,8 @@ function User({ userInfo, setUserinfo, setErrorMessage }) {
 
   const userWelcomeInfo = (
     <>
-      <form action="" onSubmit={onLogout}>
-        <p>Welcome {username}!</p>
-        <p>Not you?</p>
+      <form className="user-info" onSubmit={onLogout}>
+        <h2 className="user-header">Welcome {username}!</h2>
         <button type="submit">Signout</button>
       </form>
     </>

@@ -1,0 +1,36 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.app {
+  display: grid;
+  grid-template-areas:
+    "header header"
+    "warning warning"
+    "post user"
+    "post post-form"
+    "footer footer";
+  grid-template-rows: auto auto auto 1fr;
+  grid-template-columns: 2.5fr 1fr;
+}
+
+.header {
+  grid-area: header;
+}
+
+.error-message {
+  grid-area: warning;
+}
+
+.post-list {
+  grid-area: post;
+}
+
+.user-div {
+  grid-area: user;
+}
+
+.footer {
+  grid-area: footer;
+}

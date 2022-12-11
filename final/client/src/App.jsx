@@ -1,4 +1,5 @@
-import "./App.css";
+import "./styles/layout.css";
+import "./styles/ElementStyle.css";
 import Header from "./components/Header";
 import PostList from "./components/PostList";
 import PostForm from "./components/PostForm";

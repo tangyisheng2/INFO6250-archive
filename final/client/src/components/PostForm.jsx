@@ -76,9 +76,9 @@ function PostForm({
   function getFormTitle() {
     switch (currentState) {
       case PostFormConstant.CREATE:
-        return <h3 className="post-form-header">Create New Post</h3>;
+        return <h2 className="post-form-header">Create New Post</h2>;
       case PostFormConstant.UPDATE:
-        return <h3 className="post-form-header">Update Post</h3>;
+        return <h2 className="post-form-header">Update Post</h2>;
     }
   }
 

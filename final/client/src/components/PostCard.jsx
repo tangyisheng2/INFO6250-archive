@@ -54,18 +54,15 @@ function PostCard({
   return (
     <li className="post-list-item">
       <div className="post-list-item-body">
-        <img src={cover} />
-        <p>Creator: {userId}</p>
-        <h2>{title}</h2>
-        <p>{content}</p>
+        <img className="post-image" src={cover} />
+        <h2 className="post-title">{title}</h2>
+        <p className="post-author">Creator: {userId}</p>
+        <p className="post-content">{content}</p>
         <PostComment postId={postId} />
-        <div className="action-field">
-          <span className="like-count">
-            <button className="like-button" onClick={onLikePost}>
-              Like
-            </button>
-            {likeCount}
-          </span>
+        <div className="post-list-item-action">
+          <button className="like-button" onClick={onLikePost}>
+            Like👍 {likeCount}
+          </button>
           {isPostEditable && (
             <>
               <button className="delete-button" onClick={onDeletePost}>

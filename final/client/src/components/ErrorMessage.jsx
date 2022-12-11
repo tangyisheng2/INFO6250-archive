@@ -1,6 +1,6 @@
 function ErrorMessage({ errorMessage }) {
   return (
-    <div className="error-message warning">
+    <div className={`error-message ${errorMessage ? "warning" : ""}`}>
       <p>{errorMessage}</p>
     </div>
   );
