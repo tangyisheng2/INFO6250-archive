@@ -1,5 +1,6 @@
 import PostFormConstant from "../constants/post-form-constant";
 import { PostReducerConstant } from "../constants/post-reducer-constant";
+import PostComment from "./PostComment";
 
 function PostCard({
   postInfoItem,
@@ -114,6 +115,7 @@ function PostCard({
         <p>Creator: {userId}</p>
         <h2>{title}</h2>
         <p>{content}</p>
+        <PostComment postId={postId} />
         <div className="action-field">
           <span className="like-count">
             <button className="like-button" onClick={onLikePost}>
