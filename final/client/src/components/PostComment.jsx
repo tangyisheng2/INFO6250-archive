@@ -22,10 +22,7 @@ function PostComment({ postId }) {
   }
 
   useEffect(() => {
-    fetchCommentForPost(postId).then((res) => {
-      console.log(commentList, res);
-      return setCommentList(res);
-    });
+    fetchCommentForPost(postId).then((res) => setCommentList(res));
   }, []);
 
   return (
@@ -39,7 +36,6 @@ function PostComment({ postId }) {
             {commentList.map((commentItem) => (
               <li className="comment-list-item" key={commentItem.commentId}>
                 <span className="comment-item-username">
-                  {console.log(commentItem)}
                   {commentItem.username}
                   {": "}
                 </span>

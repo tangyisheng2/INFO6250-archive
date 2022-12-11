@@ -19,7 +19,6 @@ function PostForm({
       type: PostFormConstant.CHANGE,
       payload: { [e.target.name]: e.target.value || "" },
     };
-    console.log(actionObj);
     dispatchPostFormInfo(actionObj);
   }
 
@@ -37,7 +36,6 @@ function PostForm({
     switch (currentState) {
       case PostFormConstant.CREATE:
         createPost(formBody).then((res) => {
-          console.log(res);
           dispatchPostFormInfo({
             type: postFormInfo.CREATE,
           });
@@ -55,12 +53,6 @@ function PostForm({
             type: PostFormConstant.CREATE,
           });
           dispatchPostInfo({
-            type: PostReducerConstant.UPDATE_POST,
-            payload: {
-              updateField: res,
-            },
-          });
-          console.log({
             type: PostReducerConstant.UPDATE_POST,
             payload: {
               updateField: res,
@@ -112,7 +104,6 @@ function PostForm({
    * @returns Post body that it just updated
    */
   function updatePost(postId, body) {
-    console.log({ postId, ...body });
     return fetch("/api/v1/post", {
       method: "POST",
       headers: {

@@ -31,7 +31,6 @@ function addComment(req, res) {
     userId: uid,
     createDate: new Date(),
   };
-  console.log(storage);
 
   res.json({
     postId,
