@@ -13,7 +13,7 @@ import { PostReducerConstant } from "./constants/post-reducer-constant";
 import PostFormConstant from "./constants/post-form-constant";
 
 function App() {
-  const [userInfo, setUserinfo] = useState({});
+  const [userInfo, setUserinfo] = useState();
   const [postInfo, dispatchPostInfo] = useReducer(postReducer, []);
   const [postFormInfo, dispatchPostFormInfo] = useReducer(postFormReducer, {
     state: PostFormConstant.CREATE,
@@ -50,6 +50,11 @@ function App() {
   }, []);
 
   useEffect(() => {
+    // Clean the previous state to remove the left over post when log out
+    dispatchPostInfo({
+      type: PostReducerConstant.GET_POST,
+      payload: [],
+    });
     // Fetch Post
     fetch("/api/v1/post")
       .catch(({ error }) => {

@@ -1,90 +1,73 @@
 import { useState } from "react";
 import { UserConstant } from "../constants/user-constant.js";
+import {
+  userLogin,
+  userLogout,
+  userRegister,
+} from "../controller/user-controller.js";
 
 function User({ userInfo, setUserinfo, setErrorMessage }) {
   const username = userInfo?.username;
 
   const [userDivState, setUserDivState] = useState(UserConstant.LOGIN);
 
+  /**
+   * This method makes a HTTP POST request to the server and log in the user.
+   * It would also set the User div to welcomestate that shows the user info
+   * @param {Event} e Event object from userLoginForm
+   */
   function onLoginSubmit(e) {
     setErrorMessage(""); // Clean error message before any move
     e.preventDefault();
-    const username = e.target.username.value;
-    fetch("/api/v1/user", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-      },
-      body: JSON.stringify({ username }),
-    })
-      .catch(({ error }) => setErrorMessage(error))
-      .then((response) => {
-        if (!response.ok) {
-          return response.json().then(({ error }) => {
-            setErrorMessage(error);
-            return Promise.reject(error);
-          });
-        }
-        return response.json();
-      })
+    userLogin({ username: e.target.username.value })
       .then((res) => {
         setUserinfo(res);
         setUserDivState(UserConstant.WELCOMESTATE);
-      });
+      })
+      .catch(({ error }) => setErrorMessage(error));
   }
+
+  /**
+   * This method sends the sign up request to the server and
+   * set the User div to welcomestate that shows the user info
+   * @param {Event} e Event object from userRegisterForm
+   */
   function onRegisterSubmit(e) {
     setErrorMessage(""); // Clean error message before any move
     e.preventDefault();
-    const body = { username: e.target.username.value };
-    fetch("/api/v1/user", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-      },
-      body: JSON.stringify(body),
-    })
-      .catch(({ error }) => setErrorMessage(error))
-      .then((response) => {
-        if (!response.ok) {
-          return response.json().then(({ error }) => {
-            setErrorMessage(error);
-            return Promise.reject(error);
-          });
-        }
-        return response.json();
-      })
-      .then((res) => {
-        setUserinfo(res);
-        setUserDivState(UserConstant.WELCOMESTATE);
-      });
+    userRegister({ username: e.target.username.value }).then((res) => {
+      setUserinfo(res);
+      setUserDivState(UserConstant.WELCOMESTATE);
+    });
   }
+
+  /**
+   * This method handles log out request for the user.
+   * @param {Event} e Event object from userWelcomeInfo to logout
+   */
   function onLogout(e) {
     setErrorMessage(""); // Clean error message before any move
     e.preventDefault();
-    fetch("/api/v1/user", {
-      method: "DELETE",
-    })
-      .catch(({ error }) => setErrorMessage(error))
-      .then((response) => {
-        if (!response.ok) {
-          return response.json().then(({ error }) => {
-            setErrorMessage(error);
-            return Promise.reject(error);
-          });
-        }
-        return response.json();
-      })
-      .then(() => {
-        setUserinfo({});
-        setUserDivState(UserConstant.LOGIN);
-      });
+    userLogout().then(() => {
+      setUserinfo();
+      setUserDivState(UserConstant.LOGIN);
+    });
   }
 
+  /**
+   * This method switches the form to login view.
+   * @param {Event} e Event Object
+   */
   function onSwitchLogIn(e) {
     e.preventDefault();
     setErrorMessage("");
     setUserDivState(UserConstant.LOGIN);
   }
+
+  /**
+   * This method switch the form to register view
+   * @param {Event} e Event object
+   */
   function onSwitchRegister(e) {
     e.preventDefault();
     setErrorMessage("");
