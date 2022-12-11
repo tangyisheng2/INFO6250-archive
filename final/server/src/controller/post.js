@@ -28,6 +28,8 @@ function addPost(req, res) {
     likeCount: 0,
     createDate: new Date(),
   };
+  // add comment array in storage to prevent reading undefined
+  storage.commentForPost[postId] = [];
   res.json({ postId, ...storage.post[postId] });
 }
 
