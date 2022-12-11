@@ -31,11 +31,9 @@ function PostCard({
             return Promise.reject({ error });
           });
         }
-        console.log(response);
         return response.json();
       })
       .then((res) => {
-        console.log(`res in JSON format:`, res);
         const action = {
           type: PostReducerConstant.UPDATE_POST,
           payload: {
@@ -46,7 +44,6 @@ function PostCard({
           },
         };
         dispatchPostInfo(action);
-        console.log(`post state after dispatch:`, postInfoItem);
       });
   }
 
@@ -69,7 +66,6 @@ function PostCard({
             return Promise.reject({ error });
           });
         }
-        console.log(response);
         return response.json();
       })
       .then((res) => {
