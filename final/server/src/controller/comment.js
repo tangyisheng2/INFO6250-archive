@@ -33,7 +33,13 @@ function addComment(req, res) {
   };
   console.log(storage);
 
-  res.json({ postId, commentId, ...storage.commentForPost[postId][commentId] });
+  res.json({
+    postId,
+    commentId,
+    username:
+      storage.user[storage.commentForPost[postId][commentId].userId].username,
+    ...storage.commentForPost[postId][commentId],
+  });
 }
 
 function deleteComment(req, res) {
