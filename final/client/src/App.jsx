@@ -7,12 +7,21 @@ import Footer from "./components/Footer";
 import { useState } from "react";
 import { useReducer } from "react";
 import postReducer from "./reducer/post-reducer";
+import postFormReducer from "./reducer/post-form-reducer";
 import { useEffect } from "react";
 import { PostReducerConstant } from "./constants/post-reducer-constant";
+import PostFormConstant from "./constants/post-form-constant";
 
 function App() {
   const [userInfo, setUserinfo] = useState({});
   const [postInfo, dispatchPostInfo] = useReducer(postReducer, []);
+  const [postFormInfo, dispatchPostFormInfo] = useReducer(postFormReducer, {
+    state: PostFormConstant.CREATE,
+    formInfo: {
+      title: "",
+      content: "",
+    },
+  });
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
@@ -71,9 +80,15 @@ function App() {
       <PostList
         postInfo={postInfo}
         dispatchPostInfo={dispatchPostInfo}
+        dispatchPostFormInfo={dispatchPostFormInfo}
         setErrorMessage={setErrorMessage}
       />
-      <PostForm />
+      <PostForm
+        postFormInfo={postFormInfo}
+        dispatchPostFormInfo={dispatchPostFormInfo}
+        dispatchPostInfo={dispatchPostInfo}
+        setErrorMessage={setErrorMessage}
+      />
       <User
         userInfo={userInfo}
         setUserinfo={setUserinfo}
