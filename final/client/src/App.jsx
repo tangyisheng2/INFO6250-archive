@@ -35,10 +35,13 @@ function App() {
   }, []);
 
   useEffect(() => {
-    // Clean the previous state to remove the left over post when log out
+    // Clean the previous state to remove the left over post and data in postForm when log out
     dispatchPostInfo({
       type: PostReducerConstant.GET_POST,
       payload: [],
+    });
+    dispatchPostFormInfo({
+      type: PostFormConstant.CLEAR,
     });
     fetchPost().then((res) => {
       const action = {
