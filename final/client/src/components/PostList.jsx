@@ -7,7 +7,13 @@ function PostList({
   dispatchPostFormInfo,
   setErrorMessage,
 }) {
-  return (
+  const requestLoginView = (
+    <div className="post-list">
+      <p className="post-item warning">Please Log in to view the post.</p>
+    </div>
+  );
+
+  const postView = (
     <div className="post-list">
       PostList
       <ul className="post-ul">
@@ -24,6 +30,8 @@ function PostList({
       </ul>
     </div>
   );
+
+  return userInfo?.userId ? postView : requestLoginView;
 }
 
 export default PostList;
