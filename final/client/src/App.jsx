@@ -13,7 +13,7 @@ import { PostReducerConstant } from "./constants/post-reducer-constant";
 import PostFormConstant from "./constants/post-form-constant";
 
 function App() {
-  const [userInfo, setUserinfo] = useState();
+  const [userInfo, setUserinfo] = useState({});
   const [postInfo, dispatchPostInfo] = useReducer(postReducer, []);
   const [postFormInfo, dispatchPostFormInfo] = useReducer(postFormReducer, {
     state: PostFormConstant.CREATE,
@@ -84,6 +84,7 @@ function App() {
       <Header />
       <p>{errorMessage}</p>
       <PostList
+        userInfo={userInfo}
         postInfo={postInfo}
         dispatchPostInfo={dispatchPostInfo}
         dispatchPostFormInfo={dispatchPostFormInfo}

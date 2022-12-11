@@ -4,6 +4,7 @@ import { deletePost, updatePost } from "../controller/post-controller";
 import PostComment from "./PostComment";
 
 function PostCard({
+  userInfo,
   postInfoItem,
   dispatchPostInfo,
   dispatchPostFormInfo,
@@ -11,7 +12,7 @@ function PostCard({
 }) {
   const { postId, userId, title, content, cover, likeCount, createDate } =
     postInfoItem;
-
+  const isPostEditable = userInfo?.isAdmin || userId === userInfo?.userId;
   function onLikePost(e) {
     e.preventDefault();
     const body = { likeCount: likeCount + 1 };
@@ -65,12 +66,16 @@ function PostCard({
             </button>
             {likeCount}
           </span>
-          <button className="delete-button" onClick={onDeletePost}>
-            Delete
-          </button>
-          <button className="edit-button" onClick={onEditPost}>
-            Edit
-          </button>
+          {isPostEditable && (
+            <>
+              <button className="delete-button" onClick={onDeletePost}>
+                Delete
+              </button>
+              <button className="edit-button" onClick={onEditPost}>
+                Edit
+              </button>
+            </>
+          )}
         </div>
       </div>
     </li>

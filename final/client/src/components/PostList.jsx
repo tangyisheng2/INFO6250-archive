@@ -1,6 +1,7 @@
 import { PostCard } from "./PostCard";
 
 function PostList({
+  userInfo,
   postInfo,
   dispatchPostInfo,
   dispatchPostFormInfo,
@@ -12,6 +13,7 @@ function PostList({
       <ul className="post-ul">
         {postInfo.map((postInfoItem) => (
           <PostCard
+            userInfo={userInfo}
             postInfoItem={postInfoItem}
             dispatchPostInfo={dispatchPostInfo}
             dispatchPostFormInfo={dispatchPostFormInfo}
