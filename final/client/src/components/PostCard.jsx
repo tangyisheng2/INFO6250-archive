@@ -1,22 +1,79 @@
 import { PostReducerConstant } from "../constants/post-reducer-constant";
 
-function PostCard({ postInfoItem, dispatchPostInfo }) {
-  console.log(postInfoItem);
+function PostCard({ postInfoItem, dispatchPostInfo, setErrorMessage }) {
   const { postId, userId, title, content, cover, likeCount, createDate } =
     postInfoItem;
-
   function onLikePost(e) {
-    const action = {
-      type: PostReducerConstant.UPDATE_POST,
-      payload: {
-        postId,
-        updateField: { likeCount: likeCount + 1 },
+    e.preventDefault();
+    const body = { userId, postId, likeCount: likeCount + 1 };
+    fetch("/api/v1/post", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-    };
-    dispatchPostInfo(action);
+      body: JSON.stringify(body),
+    })
+      .catch((error) => {
+        return Promise.reject(error);
+      })
+      .then((response) => {
+        if (!response.ok) {
+          return response.json().then(({ error }) => {
+            setErrorMessage(error);
+            return Promise.reject({ error });
+          });
+        }
+        console.log(response);
+        return response.json();
+      })
+      .then((res) => {
+        console.log(`res in JSON format:`, res);
+        const action = {
+          type: PostReducerConstant.UPDATE_POST,
+          payload: {
+            postId,
+            updateField: {
+              likeCount: res.likeCount,
+            },
+          },
+        };
+        dispatchPostInfo(action);
+        console.log(`post state after dispatch:`, postInfoItem);
+      });
   }
 
   function onDeletePost(e) {
+    const body = { postId };
+    fetch("/api/v1/post", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    })
+      .catch((error) => {
+        return Promise.reject(error);
+      })
+      .then((response) => {
+        if (!response.ok) {
+          return response.json().then(({ error }) => {
+            setErrorMessage(error);
+            return Promise.reject({ error });
+          });
+        }
+        console.log(response);
+        return response.json();
+      })
+      .then((res) => {
+        const action = {
+          type: PostReducerConstant.DELETE_POST,
+          payload: {
+            res,
+          },
+        };
+        dispatchPostInfo(action);
+      });
+
     const action = {
       type: PostReducerConstant.DELETE_POST,
       payload: {
@@ -27,6 +84,7 @@ function PostCard({ postInfoItem, dispatchPostInfo }) {
   }
 
   function onEditPost(e) {
+    // TODO: FINISH THIS
     const action = {
       type: PostReducerConstant.UPDATE_POST,
       payload: {

@@ -8,29 +8,11 @@ import { useState } from "react";
 import { useReducer } from "react";
 import postReducer from "./reducer/post-reducer";
 import { useEffect } from "react";
+import { PostReducerConstant } from "./constants/post-reducer-constant";
 
 function App() {
   const [userInfo, setUserinfo] = useState({});
-  const [postInfo, dispatchPostInfo] = useReducer(postReducer, [
-    {
-      postId: "38653",
-      userId: "1",
-      title: "Bonjour",
-      content: "Bonjour from test post",
-      cover: "https://placekitten.com/1600/900",
-      likeCount: 0,
-      createDate: "2022-12-10T07:03:45.285Z",
-    },
-    {
-      postId: "1",
-      userId: "1",
-      title: "Hello World!",
-      content: "This is your first post",
-      cover: "https://placekitten.com/1600/900",
-      likeCount: 0,
-      createDate: "2022-01-01T00:00:00.000Z",
-    },
-  ]);
+  const [postInfo, dispatchPostInfo] = useReducer(postReducer, []);
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
@@ -49,7 +31,6 @@ function App() {
             return Promise.reject(error);
           });
         }
-        console.log(response);
         return response.json();
       })
       .then((res) => {
@@ -58,19 +39,40 @@ function App() {
       });
   }, []);
 
-  // useEffect(() => {
-  //   // Fetch Post
-  //   fetch("/api/v1/post").catch(({ error }) => {
-  //     setErrorMessage(error);
-  //     return Promise.reject(error);
-  //   });
-  // }, [userInfo]);
+  useEffect(() => {
+    // Fetch Post
+    fetch("/api/v1/post")
+      .catch(({ error }) => {
+        setErrorMessage(error);
+        return Promise.reject(error);
+      })
+      .then((response) => {
+        if (!response.ok) {
+          return response.json().then(({ error }) => {
+            setErrorMessage(error);
+            return Promise.reject(error);
+          });
+        }
+        return response.json();
+      })
+      .then((res) => {
+        const action = {
+          type: PostReducerConstant.GET_POST,
+          payload: res,
+        };
+        dispatchPostInfo(action);
+      });
+  }, [userInfo]);
 
   return (
     <div className="app">
       <Header />
       <p>{errorMessage}</p>
-      <PostList postInfo={postInfo} dispatchPostInfo={dispatchPostInfo} />
+      <PostList
+        postInfo={postInfo}
+        dispatchPostInfo={dispatchPostInfo}
+        setErrorMessage={setErrorMessage}
+      />
       <PostForm />
       <User
         userInfo={userInfo}

@@ -1,7 +1,6 @@
 import { PostCard } from "./PostCard";
 
-function PostList({ postInfo, dispatchPostInfo }) {
-  console.log(postInfo);
+function PostList({ postInfo, dispatchPostInfo, setErrorMessage }) {
   return (
     <div className="post-list">
       PostList
@@ -10,6 +9,7 @@ function PostList({ postInfo, dispatchPostInfo }) {
           <PostCard
             postInfoItem={postInfoItem}
             dispatchPostInfo={dispatchPostInfo}
+            setErrorMessage={setErrorMessage}
             key={postInfoItem.postId}
           />
         ))}
