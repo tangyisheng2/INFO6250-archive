@@ -1,0 +1,106 @@
+* {
+  font-family: sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+#app {
+  /* width: fit-content; */
+  min-width: 600px;
+
+  margin: auto;
+
+  display: grid;
+  grid-template-areas:
+    "title title" "err err" "userlist chat" "user user"
+    "msg-input msg-input";
+
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto;
+
+  padding: 1rem;
+
+  border: 2px solid black;
+}
+
+button {
+  background: transparent;
+
+  padding: 0.25rem 0.25rem 0 0.25rem;
+  border: 0;
+  border-bottom: 2px solid blue;
+  color: blue;
+
+  font-size: medium;
+
+  cursor: pointer;
+}
+
+.title {
+  text-align: center;
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
+
+  grid-area: title;
+
+  border-bottom: 2px solid black;
+}
+
+.warning-message {
+  color: red;
+
+  grid-area: err;
+
+  font-weight: bold;
+}
+
+.loggedin-users {
+  grid-area: userlist;
+
+  margin: 1rem 0;
+
+  padding: 0 1rem 0 0;
+
+  border-right: 2px solid black;
+
+  list-style-type: disc;
+  list-style-position: inside;
+}
+
+.chat {
+  margin: 1rem 0;
+
+  padding-left: 1rem;
+
+  list-style-type: disc;
+  list-style-position: inside;
+
+  grid-area: chat;
+
+  overflow: scroll;
+  max-height: 400px;
+}
+
+.login-prompt {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.user {
+  width: fit-content;
+  /* margin: auto; */
+  margin-bottom: 0.5rem;
+  grid-area: user;
+}
+
+.username {
+  font-weight: bold;
+}
+
+.username-prompt {
+  text-align: left;
+}
+
+.new-message {
+  grid-area: msg-input;
+}
