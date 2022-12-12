@@ -1,5 +1,3 @@
-"use strict";
-
 import PostFormConstant from "../constants/post-form-constant";
 
 function reducer(state, action) {

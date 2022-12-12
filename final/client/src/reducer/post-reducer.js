@@ -1,5 +1,3 @@
-"use strict";
-
 import { PostReducerConstant } from "../constants/post-reducer-constant";
 
 /**
