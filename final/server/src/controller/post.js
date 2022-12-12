@@ -20,6 +20,11 @@ function addPost(req, res) {
   const content = req.body.content;
   const cover = req.body.cover;
 
+  // User must input title and heading to create a post
+  if (!title || !content) {
+    res.status(400).json({ error: "invalid-input" });
+  }
+
   storage.post[postId] = {
     userId,
     title,
@@ -42,6 +47,11 @@ function updatePost(req, res) {
   const userId = getSessionUserId(sid);
 
   const postId = req.body.postId;
+
+  // Check if the post exist
+  if (!Object.keys(storage.post).includes(postId)) {
+    res.status(400).json({ error: "invalid-postId" });
+  }
 
   const title = req.body.title || storage.post[postId].title;
   const content = req.body.content || storage.post[postId].content;
@@ -80,6 +90,11 @@ function deletePost(req, res) {
   const userId = getSessionUserId(sid);
 
   const postId = req.body.postId;
+
+  // Check if the post exist
+  if (!Object.keys(storage.post).includes(postId)) {
+    res.status(400).json({ error: "invalid-postId" });
+  }
 
   // If user is neither the author of the post or admin, they can not modify the post
   if (userId != storage.post[postId].userId && !storage.user[userId]?.isAdmin) {
