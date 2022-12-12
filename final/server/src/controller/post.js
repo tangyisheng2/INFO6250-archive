@@ -30,7 +30,11 @@ function addPost(req, res) {
   };
   // add comment array in storage to prevent reading undefined
   storage.commentForPost[postId] = [];
-  res.json({ postId, ...storage.post[postId] });
+  res.json({
+    postId,
+    username: storage.user[userId].username,
+    ...storage.post[postId],
+  });
 }
 
 function updatePost(req, res) {
