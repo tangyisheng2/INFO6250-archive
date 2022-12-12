@@ -2,22 +2,40 @@
 
 This documentation describes the final project of INFO 6250.
 
-Goals:
+## Run
+
+change directory to `/server`, and run `npm run start`
+
+## Goals:
+
+This project builds an blog system to allow user to post their good memoried on the blog and share with other users.
+
+Technical details include:
 
 - Backend:
 
-  - Log in, log out, user info
-  - Able to post, edit, and delete article
-  - Able to Like the post
-  - Able to comment in current post
+  - Restful API for user login, logout, register and fetch current user info
+    - Log in/out and fetch current user info will require authentication
+    - The API will also check if user is admin
+  - Restful API for user to fetch all current post, create a new post, edit/update an existing post and delete a post
+    - All of these require authentication, except for liking a post
+    - User will be authenticated when:
+      - They are admin
+      - They are not admin but the author of the post
+  - Able to comment in post
 
 - Front end
-  - Show login form
-  - Show post along with Like buttom
-    - Probably have a detailed post page?
-  - Show comment field
+  - Show user info/log in/register page
+  - Show post list with the post body, comment section, and the action field
+    - Condintional renders the `edit` and `delete` button based on the permission granted to the user
+    - You can collapse the comment section
 
-## Technical Detail
+## Technical Detail for real geek
+
+Check [Here](https://documenter.getpostman.com/view/4350306/2s8YzTUMxx#4106d530-160f-49d4-8cc3-912a5c1bdbbe) for the latest API doc.
+
+<!-- **Doc below is deprecated**
+
 
 - Model (in `storage.js`):
   - sessions: `{sessionId: userId}`
@@ -43,4 +61,4 @@ Goals:
       - return the updated post
     - deletePost: Require auth and need to be the author/admin to delete the post. The process as follows:
       - `delete storage.post[postId]`
-- View
+- View -->
