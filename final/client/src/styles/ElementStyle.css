@@ -73,6 +73,26 @@ body {
   height: 100vh;
 }
 
+/* Scroll bar */
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+  position: relative;
+  left: 2px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 20px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--highlight-color);
+  border-radius: 20px;
+}
+
 /* Header */
 
 .header {
@@ -147,8 +167,11 @@ body {
 
   margin: 0.5rem;
   padding: 0.5rem;
+  box-sizing: border-box;
 
-  height: fit-content;
+  height: 100%;
+
+  overflow: auto;
 }
 
 .post-ul {
