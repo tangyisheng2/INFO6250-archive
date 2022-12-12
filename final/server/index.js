@@ -14,10 +14,6 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(express.static("./public"));
 
-app.get("/", (req, res) => {
-  res.send("It works");
-});
-
 app.use(userRoute);
 app.use(postRoute);
 app.use(commentRoute);
