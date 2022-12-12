@@ -11,8 +11,6 @@ function User({ userInfo, setUserinfo, setErrorMessage }) {
   const [userDivState, setUserDivState] = useState(UserConstant.LOGIN);
   const [usernameInput, setUsernameInput] = useState("");
 
-  console.log(userInfo, userDivState);
-
   /**
    * This method makes a HTTP POST request to the server and log in the user.
    * It would also set the User div to welcomestate that shows the user info

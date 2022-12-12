@@ -16,7 +16,6 @@ function PostCard({
     e.preventDefault();
     const body = { likeCount: likeCount + 1 };
     updatePost(postId, body).then((res) => {
-      console.log(res);
       const action = {
         type: PostReducerConstant.UPDATE_POST,
         payload: {
