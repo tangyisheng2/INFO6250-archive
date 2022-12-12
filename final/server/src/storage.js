@@ -8,6 +8,14 @@ const storage = {
       postId: [1],
       commentId: [],
       isAdmin: true,
+      isBanned: false,
+    },
+    2: {
+      username: "dog",
+      postId: [],
+      commentId: [],
+      isAdmin: false,
+      isBanned: true,
     },
   }, // {userId: {name, postId, commentId}}
   post: {

@@ -31,8 +31,16 @@ function login(req, res) {
     return;
   }
   const userId = getUidByUsername(username);
-  const { sid } = addSession(userId);
   const isAdmin = storage.user[userId]?.isAdmin;
+  const isBanned = storage.user[userId]?.isBanned;
+
+  // Check if the account is banned
+  if (isBanned) {
+    res.status(401).json({ error: "account-suspended" });
+    return;
+  }
+
+  const { sid } = addSession(userId);
 
   res.cookie("sid", sid);
   res.send({
@@ -45,6 +53,7 @@ function login(req, res) {
 
 function register(req, res) {
   const username = req.body.username;
+
   if (!isValidUsername(username)) {
     res.status(400).json({ error: "bad-username" });
     return;
