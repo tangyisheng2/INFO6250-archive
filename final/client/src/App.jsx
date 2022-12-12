@@ -37,10 +37,6 @@ function App() {
 
   useEffect(() => {
     // Clean the previous state to remove the left over post and data in postForm when log out
-    dispatchPostInfo({
-      type: PostReducerConstant.GET_POST,
-      payload: [],
-    });
     dispatchPostFormInfo({
       type: PostFormConstant.CLEAR,
     });
@@ -52,6 +48,22 @@ function App() {
       dispatchPostInfo(action);
     });
   }, [userInfo]);
+
+  // Polling the latest post automatically
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      fetchPost().then((res) => {
+        const action = {
+          type: PostReducerConstant.GET_POST,
+          payload: res,
+        };
+        dispatchPostInfo(action);
+      });
+    }, 1000);
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
 
   return (
     <div className="app">
