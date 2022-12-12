@@ -60,6 +60,9 @@ function PostForm({
             },
           });
         });
+        break;
+      default:
+        break;
     }
   }
 
@@ -79,6 +82,8 @@ function PostForm({
         return <h2 className="post-form-header">Create New Post</h2>;
       case PostFormConstant.UPDATE:
         return <h2 className="post-form-header">Update Post</h2>;
+      default:
+        break;
     }
   }
 

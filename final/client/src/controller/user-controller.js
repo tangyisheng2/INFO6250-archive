@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * This method fetch the current user in session
  * @returns {Promise} userInfo object

@@ -8,10 +8,8 @@ function PostCard({
   postInfoItem,
   dispatchPostInfo,
   dispatchPostFormInfo,
-  setErrorMessage,
 }) {
-  const { postId, userId, title, content, cover, likeCount, createDate } =
-    postInfoItem;
+  const { postId, userId, title, content, cover, likeCount } = postInfoItem;
   const isPostEditable = userInfo?.isAdmin || userId === userInfo?.userId;
   function onLikePost(e) {
     e.preventDefault();
@@ -54,7 +52,7 @@ function PostCard({
   return (
     <li className="post-list-item">
       <div className="post-list-item-body">
-        <img className="post-image" src={cover} />
+        <img className="post-image" src={cover} alt={""} />
         <h2 className="post-title">{title}</h2>
         <p className="post-author">Creator: {userId}</p>
         <p className="post-content">{content}</p>

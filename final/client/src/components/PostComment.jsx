@@ -29,7 +29,7 @@ function PostComment({ postId }) {
 
   useEffect(() => {
     fetchCommentForPost(postId).then((res) => setCommentList(res));
-  }, []);
+  }, [postId]);
 
   return (
     <div className="comment">

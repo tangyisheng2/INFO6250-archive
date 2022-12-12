@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * This method fetches the post from the server
  * @returns {Promise} postInfo object
