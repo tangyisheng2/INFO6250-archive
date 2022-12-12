@@ -1,0 +1,5 @@
+@media (prefers-reduced-motion: no-preference) {
+  button {
+    transition: background-color 0.25s;
+  }
+}
