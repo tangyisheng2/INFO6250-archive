@@ -8,8 +8,10 @@ import {
 
 function User({ userInfo, setUserinfo, setErrorMessage }) {
   const username = userInfo?.username;
-
   const [userDivState, setUserDivState] = useState(UserConstant.LOGIN);
+  const [usernameInput, setUsernameInput] = useState("");
+
+  console.log(userInfo, userDivState);
 
   /**
    * This method makes a HTTP POST request to the server and log in the user.
@@ -20,11 +22,16 @@ function User({ userInfo, setUserinfo, setErrorMessage }) {
     setErrorMessage(""); // Clean error message before any move
     e.preventDefault();
     userLogin({ username: e.target.username.value })
+      .catch(({ error }) => {
+        setErrorMessage(error);
+        setUsernameInput("");
+        return Promise.reject(error);
+      })
       .then((res) => {
         setUserinfo(res);
         setUserDivState(UserConstant.WELCOMESTATE);
-      })
-      .catch(({ error }) => setErrorMessage(error));
+        setUsernameInput("");
+      });
   }
 
   /**
@@ -35,10 +42,17 @@ function User({ userInfo, setUserinfo, setErrorMessage }) {
   function onRegisterSubmit(e) {
     setErrorMessage(""); // Clean error message before any move
     e.preventDefault();
-    userRegister({ username: e.target.username.value }).then((res) => {
-      setUserinfo(res);
-      setUserDivState(UserConstant.WELCOMESTATE);
-    });
+    userRegister({ username: e.target.username.value })
+      .catch(({ error }) => {
+        setErrorMessage(error);
+        setUsernameInput("");
+        return Promise.reject(error);
+      })
+      .then((res) => {
+        setUserinfo(res);
+        setUserDivState(UserConstant.WELCOMESTATE);
+        setUsernameInput("");
+      });
   }
 
   /**
@@ -52,6 +66,14 @@ function User({ userInfo, setUserinfo, setErrorMessage }) {
       setUserinfo();
       setUserDivState(UserConstant.LOGIN);
     });
+  }
+
+  /**
+   * This method handles username input change.
+   * @param {Event} e Event object from username input
+   */
+  function onUsernameInputChange(e) {
+    setUsernameInput(e.target.value);
   }
 
   /**
@@ -94,6 +116,8 @@ function User({ userInfo, setUserinfo, setErrorMessage }) {
             name="username"
             placeholder="John"
             className="username-input"
+            onChange={onUsernameInputChange}
+            value={usernameInput}
           />
         </label>
         <button type="submit">Login</button>
@@ -112,6 +136,8 @@ function User({ userInfo, setUserinfo, setErrorMessage }) {
             name="username"
             placeholder="John"
             className="username-input"
+            onChange={onUsernameInputChange}
+            value={usernameInput}
           />
         </label>
         <button type="submit">Sign up</button>
