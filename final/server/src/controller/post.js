@@ -5,7 +5,8 @@ const { getSessionUserId } = require("./user-utils");
 
 function getPost(req, res) {
   const ret = Object.keys(storage.post).map((postId) => {
-    return { postId, ...storage.post[postId] };
+    const username = storage.user[storage.post[postId].userId].username;
+    return { postId, username, ...storage.post[postId] };
   });
   ret.sort((a, b) => b.createDate - a.createDate);
   res.json(ret);
